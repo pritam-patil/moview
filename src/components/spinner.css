@@ -1,0 +1,9 @@
+.tab-spinner {
+    position: fixed;
+    top: 50%;
+    left: 70%;
+    width: 5.4em;
+    height: 5.4em;
+    margin-top: -2.7em;
+    margin-left: -2.7em;
+}
