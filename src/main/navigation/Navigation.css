@@ -1,5 +1,26 @@
 .navigation {
-    flex-basis: 20%;
-    min-width: 300px;
-    padding: 40px;
+    flex-basis: 15%;
+    max-width: 400px;
+    max-height: 420px;
+    padding: 10px;
+}
+
+.close-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+.close-button button {
+    padding: 10px 21px;
+    background: #e27a3f;
+    color: rgba(255,255,255, 0.75);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease-out;
+    outline: 0;
+    border: 0;
+}
+
+.close-button button:hover {
+    color: white;
 }

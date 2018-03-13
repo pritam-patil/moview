@@ -19,6 +19,8 @@ class Movies extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.url !== nextProps.url) {
+            this.setState({ isFetching: true });
+
             this.fetchMovies(nextProps.url);
         }
     }
@@ -42,7 +44,8 @@ class Movies extends React.Component {
     render() {
         const { isFetching } = this.state;
         return (
-            <section>
+            <div>
+                <label className="search-label" onClick={this.props.onClick}> Search </label>
                 <ul className="movies">
                     {isFetching && <MovieSpinner isFetching={isFetching} /> }
                     {!isFetching &&
@@ -51,7 +54,7 @@ class Movies extends React.Component {
                         ))
                     }
                 </ul>
-            </section>
+            </div>
         )
     }
 }

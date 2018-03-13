@@ -1,4 +1,5 @@
 import React from "react";
+import Modal from '../components/PopUp';
 import CircleSpinner from '../components/CircleSpinner';
 import "./Main.css"
 import Navigation from "./navigation/Navigation";
@@ -30,7 +31,8 @@ class Main extends React.Component {
             max: 300,
             step: 15,
             value: { min: 60, max: 120 }
-        }
+        },
+        isOpen: false
     };
 
     onGenreChange = event => {
@@ -47,6 +49,12 @@ class Main extends React.Component {
                 ...this.state[data.type],
                 value: data.value
             }
+        });
+    };
+
+    toggleModal = () => {
+        this.setState({
+            isOpen: !this.state.isOpen
         });
     };
 
@@ -71,6 +79,7 @@ class Main extends React.Component {
     };
 
     onSearchButtonClick = () => {
+        this.toggleModal();
         this.generateUrl();
     };
 
@@ -79,21 +88,25 @@ class Main extends React.Component {
 
         return (
             <div className="main">
-                <section>
-                    { isFetching && <CircleSpinner isFetching={isFetching} />}
-                    {!isFetching &&
+
+                <Modal
+                   show={this.state.isOpen}
+                   onClose={this.toggleModal}
+                >
+                {!isFetching &&
                     <Navigation
                         onChange={this.onChange}
                         onGenreChange={this.onGenreChange}
                         setGenres={this.setGenres}
                         onSearchButtonClick={this.onSearchButtonClick}
+                        onClose={this.toggleModal}
                         {...this.state}
                     />
-                    }
-                </section>
-                <section>
-                    <Movies url={this.state.moviesUrl}/>
-                </section>
+                }
+                </Modal>
+                { isFetching && !this.state.open && <CircleSpinner isFetching={isFetching} />}
+                <Movies url={this.state.moviesUrl} onClick={this.toggleModal}/>
+
             </div>
         )
     }
