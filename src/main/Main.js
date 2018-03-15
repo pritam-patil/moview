@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from '../components/PopUp';
+import Modal from 'react-responsive-modal';
 import CircleSpinner from '../components/CircleSpinner';
 import "./Main.css"
 import Navigation from "./navigation/Navigation";
@@ -13,10 +13,10 @@ class Main extends React.Component {
         genres: [],
         year: {
             label: "year",
-            min: 1990,
-            max: 2017,
+            min: 1970,
+            max: 2018,
             step: 1,
-            value: { min: 2000, max: 2017 }
+            value: { min: 2000, max: 2018 }
         },
         rating: {
             label: "rating",
@@ -58,6 +58,10 @@ class Main extends React.Component {
         });
     };
 
+    onCloseModal = () => {
+        this.setState({ isOpen: false });
+    };
+
     generateUrl = () => {
         const {genres, year, rating, runtime } = this.state;
         const selectedGenre = genres.find( genre => genre.name === this.state.genre);
@@ -84,15 +88,11 @@ class Main extends React.Component {
     };
 
     render() {
-        const { isFetching } = this.state;
+        const { isFetching, isOpen } = this.state;
 
         return (
             <div className="main">
-
-                <Modal
-                   show={this.state.isOpen}
-                   onClose={this.toggleModal}
-                >
+                <Modal open={isOpen} onClose={this.onCloseModal} little>
                 {!isFetching &&
                     <Navigation
                         onChange={this.onChange}

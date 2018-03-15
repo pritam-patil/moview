@@ -27,8 +27,6 @@ class Navigation extends React.Component {
                 <Slider data={runtime} onChange={onChange} />
 
                 <SearchButton onClick={onSearchButtonClick}/>
-                <label className="close-button" onClick={onClose}>Close</label>
-
             </section>
         )
     }

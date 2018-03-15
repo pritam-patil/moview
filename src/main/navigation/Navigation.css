@@ -1,6 +1,6 @@
 .navigation {
     flex-basis: 15%;
-    max-width: 400px;
+    min-width: 300px;
     max-height: 420px;
     padding: 10px;
 }
