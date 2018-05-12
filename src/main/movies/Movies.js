@@ -44,8 +44,8 @@ class Movies extends React.Component {
     render() {
         const { isFetching } = this.state;
         return (
-            <div>
-                <label className="search-label" onClick={this.props.onClick}> Search </label>
+            <div className="movie-container">
+                <label onClick={this.props.onClick}> Search </label>
                 <ul className="movies">
                     {isFetching && <MovieSpinner isFetching={isFetching} /> }
                     {!isFetching &&
