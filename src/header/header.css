@@ -1,7 +1,7 @@
 .header {
     display: flex;
     border-bottom: 1px solid #a9adac;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .header > img {
@@ -10,7 +10,7 @@
 
 @media only screen and (max-height: 800px) and (max-width: 500px) {
  .header > img {
-          flex:1 0 auto;
+          flex:0 0 auto;
   }
 }
 .content {

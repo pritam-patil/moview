@@ -22,9 +22,9 @@ class Navigation extends React.Component {
                     onGenreChange={onGenreChange}
                 />
 
-                <Slider data={year} onChange={onChange} />
-                <Slider data={rating} onChange={onChange} />
-                <Slider data={runtime} onChange={onChange} />
+                <Slider label="Select Year:" data={year} onChange={onChange} />
+                <Slider label="Select rating:" data={rating} onChange={onChange} />
+                <Slider label="Select movie length:" data={runtime} onChange={onChange} />
 
                 <SearchButton onClick={onSearchButtonClick}/>
             </section>

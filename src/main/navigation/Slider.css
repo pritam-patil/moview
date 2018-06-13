@@ -1,5 +1,5 @@
 .slider {
-    margin-bottom: 40px;
+    margin: 33px 0;
 }
 
 .slider label {
@@ -7,10 +7,11 @@
     font-size: 1rem;
     margin-bottom: 20px;
     display: block;
+    padding-bottom: 8px;
 }
 
 .input-range__slider {
-    background: #e27a3f;
+    background: black;
     border: none;
 }
 
@@ -19,12 +20,11 @@
 }
 
 .input-range__track--active {
-    background: #e27a3f;
+    background: black;
 }
 
 .input-range__label--value .input-range__label-container {
-    background: #e27a3f;
-    color: white;
+    color: black;
     font-size: 0.65rem;
     padding: 2px 5px;
     border-radius: 2px;
@@ -36,6 +36,7 @@
     font-size: 0.65rem;
     color: #888;
     left: 0;
+    font-weight: bold;
 }
 
 .input-range__label--max .input-range__label-container {

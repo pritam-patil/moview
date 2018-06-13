@@ -13,7 +13,8 @@ class Slider extends React.Component {
     };
 
     render() {
-        const { min, max, step, value, label } = this.props.data;
+        const { label } = this.props;
+        const { min, max, step, value } = this.props.data;
         return (
             <div className="slider">
                 <label>{label}</label>

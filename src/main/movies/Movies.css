@@ -6,32 +6,39 @@
 }
 
 .movie-container > label {
+    background-color: blue;
     border: 2px groove blue;
     border-radius: 8px;
-    margin-top: 16px;
     padding: 4px;
-    color: white;
+    color: aliceblue;
     font-size: 14px;
     font-weight: bold;
-    background-color: blue;
+    position: absolute;
+    right: 27%;
+    top: 5.5rem;
+    width: 9.5rem;
+    text-align: center;
 }
 
 .movies {
     flex-basis: 80%;
     display: flex;
     flex-wrap: wrap;
-
     margin: 0;
     padding: 20px 0;
 }
 
-@media only screen and (max-height: 800px) and (max-width: 500px) {
+@media only screen and (max-height: 900px) and (max-width: 500px) {
     .movies {
         display: flex;
         margin-left: 4px;
         margin-right: 4px;
-        marker-top: 10px;
-        justify-content: space-between;
+        justify-content: flex-start;
+    }
 
+    .movie-container > label {
+        right: 5rem;
+        width: 5rem;
+        text-align: center;
     }
 }
