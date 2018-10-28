@@ -13,7 +13,7 @@ class Navigation extends React.Component {
     }
 
     render() {
-        const { genre, genres, onGenreChange, onChange, year, rating, runtime, onClose, onSearchButtonClick } = this.props;
+        const { genre, genres, onModalClose, onGenreChange, onChange, year, rating, runtime, onClose, onSearchButtonClick } = this.props;
         return (
             <section className="navigation">
                 <Selection
@@ -25,8 +25,7 @@ class Navigation extends React.Component {
                 <Slider label="Select Year:" data={year} onChange={onChange} />
                 <Slider label="Select rating:" data={rating} onChange={onChange} />
                 <Slider label="Select movie length:" data={runtime} onChange={onChange} />
-
-                <SearchButton onClick={onSearchButtonClick}/>
+                <SearchButton onClick={onSearchButtonClick} onClose={onModalClose}/>
             </section>
         )
     }

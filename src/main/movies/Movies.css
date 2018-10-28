@@ -25,7 +25,14 @@
     display: flex;
     flex-wrap: wrap;
     margin: 0;
-    padding: 20px 0;
+    padding: 0 0 20px;
+}
+
+.movie-container i {
+    color: blue;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
 }
 
 @media only screen and (max-height: 900px) and (max-width: 500px) {
@@ -36,9 +43,8 @@
         justify-content: flex-start;
     }
 
-    .movie-container > label {
-        right: 5rem;
-        width: 5rem;
-        text-align: center;
+    .movie-container > i {
+        bottom: 1rem;
+        right: 1rem;
     }
 }

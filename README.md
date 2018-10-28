@@ -8,3 +8,5 @@
 - v0.5 header update, flexboxed design
 - v0.6 Search button placement update, search options UI update, movie list UI fixed
 - v0.7 Link tiles with movie info (routing)
+- v0.8 make click on site icon/name route to home
+- v0.9 open info in modal instead of new page

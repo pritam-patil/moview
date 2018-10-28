@@ -2,6 +2,10 @@
     display: flex;
 }
 
+.modal-custom {
+    border-radius: 4px;
+}
+
 .search-label {
     color: #3f51b5;
     font-size: 15px;

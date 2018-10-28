@@ -1,7 +1,6 @@
 import React from "react";
 import MovieSpinner from '../../components/CircleSpinner';
 import MovieListItem from "./MovieListItem";
-import styles from '../../header/header.css';
 import "./Movies.css";
 
 class Movies extends React.Component {
@@ -46,13 +45,13 @@ class Movies extends React.Component {
         const { isFetching } = this.state;
         return (
             <div className="movie-container">
-                <i class="fas fa-search fa-2x" onClick={this.props.onClick}></i>
+                <label onClick={this.props.onClick}> Search </label>
                 <ul className="movies">
                     {isFetching && <MovieSpinner isFetching={isFetching} /> }
                     {!isFetching &&
-                        this.state.movies.map(movie => (
-                            <MovieListItem key={movie.id} movie={movie} />
-                        ))
+                    this.state.movies.map(movie => (
+                        <MovieListItem key={movie.id} movie={movie} />
+                    ))
                     }
                 </ul>
             </div>

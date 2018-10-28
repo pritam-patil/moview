@@ -92,21 +92,26 @@ class Main extends React.Component {
 
         return (
             <div className="main">
-                <Modal open={isOpen} onClose={this.onCloseModal} little>
-                {!isFetching &&
-                    <Navigation
-                        onChange={this.onChange}
-                        onGenreChange={this.onGenreChange}
-                        setGenres={this.setGenres}
-                        onSearchButtonClick={this.onSearchButtonClick}
-                        onClose={this.toggleModal}
-                        {...this.state}
-                    />
-                }
+                <Modal 
+                  classNames={{modal: "modal-custom"}}
+                  open={isOpen}
+                  onClose={this.onCloseModal}
+                  showCloseIcon={false}
+                  little>
+                    {!isFetching &&
+                        <Navigation
+                            onChange={this.onChange}
+                            onGenreChange={this.onGenreChange}
+                            onModalClose={this.onCloseModal}
+                            setGenres={this.setGenres}
+                            onSearchButtonClick={this.onSearchButtonClick}
+                            onClose={this.toggleModal}
+                            {...this.state}
+                        />
+                    }
                 </Modal>
                 { isFetching && !this.state.open && <CircleSpinner isFetching={isFetching} />}
                 <Movies url={this.state.moviesUrl} onClick={this.toggleModal}/>
-
             </div>
         )
     }

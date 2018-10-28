@@ -2,6 +2,11 @@
     display: flex;
     justify-content: center;
 }
+
+i {
+    padding: 4px;
+}
+
 .search-button button {
     padding: 10px 21px;
     background: blue;
