@@ -30,6 +30,7 @@
 .genres > div {
     border: 1px;
     border-radius: 20px;
+    font-size: 14px;
     padding: 2px 6px;
     margin: 2px 2px;
     color: white;
@@ -68,6 +69,7 @@
     align-self: center;
     color: #e27a3f;
     position: fixed;
+    margin-top: 8px;
     bottom: 1rem;
     right: 1rem;
     z-index: 3;

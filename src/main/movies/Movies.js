@@ -35,8 +35,8 @@ class Movies extends React.Component {
 
     storeMovies = data => {
         const movies = data.results.map( result => {
-            const  { vote_count, id, genre_ids, poster_path, title, vote_average, release_date } = result;
-            return { vote_count, id, genre_ids, poster_path, title, vote_average, release_date };
+            const  { overview, vote_count, id, genre_ids, poster_path, title, vote_average, release_date } = result;
+            return { overview, vote_count, id, genre_ids, poster_path, title, vote_average, release_date };
         });
 
         this.setState({ movies , isFetching: false});
@@ -44,13 +44,14 @@ class Movies extends React.Component {
 
     render() {
         const { isFetching } = this.state;
+        const orderedMovies = this.state.movies || [];
         return (
             <div className="movie-container">
-                <i class="fas fa-search fa-2x" onClick={this.props.onClick}></i>
+                <i class="fas fa-search fa-2x search" onClick={this.props.onClick}></i>
                 <ul className="movies">
                     {isFetching && <MovieSpinner isFetching={isFetching} /> }
                     {!isFetching &&
-                        this.state.movies.map(movie => (
+                        !!orderedMovies && orderedMovies.map(movie => (
                             <MovieListItem key={movie.id} movie={movie} />
                         ))
                     }
