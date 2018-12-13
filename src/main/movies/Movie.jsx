@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import CircleSpinner from '../../components/CircleSpinner';
+import { LazyLoad, Spinner } from '../../components';
 import './Movie.css';
 
 const MovieTile = props => {
@@ -12,7 +12,6 @@ const MovieTile = props => {
         details: overview
     } = props;
     const length = `${runtime} mins`;
-    const description = overview;     
 
     return (
         <div className="phm-details">
@@ -35,7 +34,7 @@ const MovieTile = props => {
                         <span>{length}</span>
                     </div>
                 </div>
-                <span>{description}</span>
+                <span>{overview}</span>
             </div>
         </div>
     );
@@ -66,23 +65,19 @@ class Movie extends Component {
             release_date,
             genres,
             overview,
-            vote_average,
             runtime
         } = movie;
 
         const releaseYear = release_date ? release_date.substring(0 ,4) : null;
         const imgUrl = `http://image.tmdb.org/t/p/w1280/${backdrop_path}`;
-        const backgroundStyle = {
-            backgroundImage: `url(${imgUrl})`
-        };
 
         return (
             <div className="movie-page">
             {
                 isLoading
-                    ? <CircleSpinner isFetching={isLoading} />
+                    ? <Spinner isFetching={isLoading} />
                     : <div className="movie-page">
-                        <div className="movie-backdrop" style={backgroundStyle} />
+                        <LazyLoad className="movie-backdrop" url={imgUrl}/>
                         <MovieTile
                             title={title}
                             year={releaseYear}

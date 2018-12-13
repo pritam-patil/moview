@@ -24,8 +24,8 @@
     flex-basis: 80%;
     display: flex;
     flex-wrap: wrap;
-    margin: 0;
-    padding: 0 0 20px;
+    margin: 0px 16px;
+    padding: 0 0 8px;
 }
 
 .movie-container .search {
@@ -39,9 +39,8 @@
 @media only screen and (max-height: 900px) and (max-width: 500px) {
     .movies {
         display: flex;
-        margin-left: 4px;
-        margin-right: 4px;
-        justify-content: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .movie-container > i {

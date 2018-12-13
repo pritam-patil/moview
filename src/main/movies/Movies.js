@@ -1,7 +1,6 @@
 import React from "react";
 import MovieSpinner from '../../components/CircleSpinner';
 import MovieListItem from "./MovieListItem";
-import styles from '../../header/header.css';
 import "./Movies.css";
 
 class Movies extends React.Component {

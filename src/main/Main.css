@@ -1,5 +1,6 @@
 .main {
     display: flex;
+    flex-direction: column;
 }
 
 .modal-custom {
@@ -9,6 +10,64 @@
 .search-label {
     color: #3f51b5;
     font-size: 15px;
+}
+
+.now-showing {
+    font-weight: bolder;
+    border-bottom: 4px solid orangered;
+    max-width: 100px;
+    margin: 8px;
+    padding: 0px 0px 4px 0px;
+}
+
+.list-info {
+    font-size: 12px;
+    flex: 1;
+    display: flex;
+    height: 44px;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 8px 4px;
+}
+
+.genre-filter {
+    border: 1px solid hsl(240, 100%, 75%);
+    color: hsla(0, 0%, 100%);
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 4px;
+    margin: 0px 8px;
+    background-color: hsl(240, 74%, 70%);
+}
+
+.year-filter,
+.time-filter,
+.rating-filter {
+    border: 1px solid hsl(240, 100%, 75%);
+    background-color: hsl(240, 100%, 70%);
+    color: hsla(0, 0%, 100%);
+    font-weight: bold;
+    max-width: 96px;
+    margin: 0px 4px;
+    padding: 4px;
+    border-radius: 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.year-filter > div,
+.time-filter > div,
+.rating-filter > div {
+    margin: 4px 0px;
+}
+
+
+.year-filter > i,
+.time-filter > i,
+.rating-filter > i {
+    align-self: flex-end;
 }
 
 @media only screen and (max-width: 800px) and (max-height: 500px)  {

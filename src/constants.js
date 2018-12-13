@@ -1,6 +1,3 @@
-export const YEAR_START = 1970;
-export const YEAR_MARKER = 2000;
-export const YEAR_END = 2018;
 export const MOVIE_GENRES = [
      'Action',
      'Adventure',
@@ -22,3 +19,13 @@ export const MOVIE_GENRES = [
      'War',
      'Western'
  ];
+
+export const DEFAULT_FILTERS = {
+  GENRE: 'Comedy',
+  MIN_YEAR: 2000,
+  MAX_YEAR: 2018,
+  MIN_RATING: 7,
+  MAX_RATING: 10,
+  MIN_TIME_MINS: 60,
+  MAX_TIME_MINS: 120
+};
