@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from 'react-responsive-modal';
-import CircleSpinner from '../components/CircleSpinner';
+import { Menu, Segment, Loader } from 'semantic-ui-react';
 import { DEFAULT_FILTERS } from '../constants';
 import Navigation from "./navigation/Navigation";
 
@@ -167,32 +167,17 @@ class Main extends React.Component {
                         />
                     }
                 </Modal>
-                { isFetching && !this.state.open && <CircleSpinner isFetching={isFetching} />}
+                { isFetching && !this.state.open && <Loader active={isFetching} />}
                 {
-                  defaults ? <div className={'now-showing'}> Now showing </div> :
-                    <div className={'list-info'}>
-                        <div className={'genre-filter'} onClick={() => {}}>
-                          <span> {genre} </span>
-                          <i class="fas fa-times-circle"></i>
-                        </div>
-                        <div className={'time-filter'}>
-                            <i class="fas fa-clock fa-1g"></i>
-                            <div>{runtime.value.min} &#9679; {runtime.value.max}</div>
-                            <i class="fas fa-times-circle"></i>
-                        </div>
-                      <div className={'rating-filter'}>
-                        <i class="fas fa-star fa-xs"></i>
-                        <div>{rating.value.min} &#9679; {rating.value.max}</div>
-                        <i class="fas fa-times-circle"></i>
-                      </div>
-                        <div className={'year-filter'}>
-                          <i class="fas fa-calendar-alt fa-xs"></i>
-                          <div>{yearSelector(this.state)}</div>
-                          <i class="fas fa-times-circle"></i>
-                        </div>
+                    <div>
+                  <Menu tabular attached="top">
+                    <Menu.Item active name="now showing"></Menu.Item>   
+                    </Menu>
+                    <Segment attached="bottom">
+                            <Movies genre={this.state.genre} url={this.state.moviesUrl} onClick={this.toggleModal}/>
+                    </Segment>
                     </div>
                 }
-                <Movies genre={this.state.genre} url={this.state.moviesUrl} onClick={this.toggleModal}/>
             </div>
         )
     }

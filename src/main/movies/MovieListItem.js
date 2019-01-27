@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import LineEllipsis from 'react-lines-ellipsis';
+import { Card, Icon } from 'semantic-ui-react';
 import { LazyLoad } from '../../components';
 import "./MovieListItem.css";
 
@@ -28,6 +29,14 @@ const MovieRatings = ({ title, vote_average = DEFAULT_RATING }) => {
         fullStars
     )
 };
+
+const CardExampleCardProps = ({title, poster_path, overview, release_date}) => (
+    <Card
+      header={title}
+      meta={release_date}
+      description={overview}
+    />
+);
 
 const MovieListItem = ({ movie={} }) => {
     const {

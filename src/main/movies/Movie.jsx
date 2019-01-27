@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { LazyLoad, Spinner } from '../../components';
+import { Card, Grid, Image, Label, Icon } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import './Movie.css';
 
 const MovieTile = props => {
@@ -14,6 +15,41 @@ const MovieTile = props => {
     const length = `${runtime} mins`;
 
     return (
+        <Card fluid>
+            <Image src={props.imgUrl} />
+            <Card.Content>
+                <Card.Header className="phm-title-tile"> {movieName} ({releaseYear}) </Card.Header>
+                <Card.Header extra>  </Card.Header>
+                <Card.Meta>
+                    <Grid columns={2}>
+                        <Grid.Row width={12}>
+                            <Grid.Column width={8}>
+                            <section className="genres">
+                                {
+                                    genres && genres.map((genre, index) => (
+                                            <Label color="blue" style={{margin: '4px'}}>{genre.name}</Label>
+                                    ))
+                                }
+                                
+                            </section>
+                            </Grid.Column>
+                            <Grid.Column width={8}>
+                                <Label style={{borderRadius: '16px', marginLeft: '4px'}} margin={4} image color="orange">
+                                    <Icon name="clock outline"/>                            
+                                    {runtime} min
+                                </Label>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Card.Meta>
+                <Card.Description className="phm-description">
+                    {overview}
+                </Card.Description>
+            </Card.Content>
+        </Card>
+    );
+
+    return (
         <div className="phm-details">
             <div className="phm-details-tile">
                 <div className="phm-header">
@@ -23,16 +59,16 @@ const MovieTile = props => {
                                 {
                                     genres && genres.map((genre, index) => (
                                         <div key={genre.id}>
-                                            <span>{genre.name}</span>
+                                            <Label color="blue">{genre.name}</Label>
                                         </div>
                                     ))
                                 }
                             </section>
                     </div>
-                    <div className="phm-time">
-                        <i class="fas fa-clock fa-1g"></i>
-                        <span>{length}</span>
-                    </div>
+                    <Label image color="blue">
+                        <Icon name="clock outline" />
+                        {length}
+                    </Label>
                 </div>
                 <span>{overview}</span>
             </div>
@@ -75,15 +111,15 @@ class Movie extends Component {
             <div className="movie-page">
             {
                 isLoading
-                    ? <Spinner isFetching={isLoading} />
+                    ? <Loader active inline='centered' />
                     : <div className="movie-page">
-                        <LazyLoad className="movie-backdrop" url={imgUrl}/>
                         <MovieTile
                             title={title}
                             year={releaseYear}
                             genres={genres}
                             time={runtime}
                             details={overview}
+                            imgUrl={imgUrl}
                         />
                       </div>
             }

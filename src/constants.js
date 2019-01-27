@@ -23,7 +23,7 @@ export const MOVIE_GENRES = [
 export const DEFAULT_FILTERS = {
   GENRE: 'Comedy',
   MIN_YEAR: 2000,
-  MAX_YEAR: 2018,
+  MAX_YEAR: 2019,
   MIN_RATING: 7,
   MAX_RATING: 10,
   MIN_TIME_MINS: 60,
