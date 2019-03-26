@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from 'react-responsive-modal';
 import { Menu, Segment, Loader } from 'semantic-ui-react';
+import AirbrakeClient from 'airbrake-js';
 import { DEFAULT_FILTERS } from '../constants';
 import Navigation from "./navigation/Navigation";
 
@@ -59,8 +60,24 @@ class Main extends React.Component {
             step: 15,
             value: { min: MIN_TIME_MINS, max: MAX_TIME_MINS }
         },
-        isOpen: false
+        isOpen: false,
+        hasError: false,
     };
+
+    airbrake = new AirbrakeClient({
+        projectId: 219983,
+        projectKey: '7881b9af5510c9794ba34bb4d525eecd',
+    });
+
+    componentDidCatch(error, info) {
+        this.setState({ hasError: true });
+
+        // Send error to airBrake
+        this.airbrake.notify({
+            error,
+            params: { info },
+        });
+    }
 
     componentDidMount() {
         console.log(moviesLocation(this.state));
@@ -143,9 +160,14 @@ class Main extends React.Component {
     };
 
     render() {
-        const { isFetching, isOpen } = this.state;
-      const { genre, runtime, rating } = this.state;
-      const defaults = hasDefaultPreferences(this.state);
+        const { hasError, isFetching, isOpen } = this.state;
+        
+        if (hasError) {
+            return <h1> Oops, something went wrong. </h1>;
+        }
+        
+        const { genre, runtime, rating } = this.state;
+        const defaults = hasDefaultPreferences(this.state);
 
         return (
             <div className="main">

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "airbrake-js": "^1.6.6",
+    "cross-fetch": "^3.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-input-range": "^1.3.0",
