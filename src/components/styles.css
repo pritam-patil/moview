@@ -1,0 +1,38 @@
+.movie-backdrop {
+    background-size: cover;
+    background-position: center center;
+}
+
+.movie-poster-img {
+    min-height: 128px;
+    margin-top: 8px;
+    align-self: center;
+    width: 80%;
+    z-index: 2;
+    border-radius: 8px;
+    border: 8px solid hsla(22, 74%, 57%, 0.2);
+}
+
+@media (min-width: 1281px) {
+    .movie-poster-img {
+        min-height: 320px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .movie-poster-img {
+        min-height: 320px;
+    }
+}
+
+@media (min-width: 481px) and (orientation: landscape) {
+    .movie-poster-img {
+        min-height: 256px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .movie-poster-img {
+        min-height: 192px;
+    }
+}

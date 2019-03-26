@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import CircleSpinner from '../../components/CircleSpinner';
+import { Card, Grid, Image, Label, Icon } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import './Movie.css';
 
 const MovieTile = props => {
@@ -12,7 +13,41 @@ const MovieTile = props => {
         details: overview
     } = props;
     const length = `${runtime} mins`;
-    const description = overview;     
+
+    return (
+        <Card fluid>
+            <Image src={props.imgUrl} />
+            <Card.Content>
+                <Card.Header className="phm-title-tile"> {movieName} ({releaseYear}) </Card.Header>
+                <Card.Header extra>  </Card.Header>
+                <Card.Meta>
+                    <Grid columns={2}>
+                        <Grid.Row width={12}>
+                            <Grid.Column width={8}>
+                            <section className="genres">
+                                {
+                                    genres && genres.map((genre, index) => (
+                                            <Label color="blue" style={{margin: '4px'}}>{genre.name}</Label>
+                                    ))
+                                }
+                                
+                            </section>
+                            </Grid.Column>
+                            <Grid.Column width={8}>
+                                <Label style={{borderRadius: '16px', marginLeft: '4px'}} margin={4} image color="orange">
+                                    <Icon name="clock outline"/>                            
+                                    {runtime} min
+                                </Label>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Card.Meta>
+                <Card.Description className="phm-description">
+                    {overview}
+                </Card.Description>
+            </Card.Content>
+        </Card>
+    );
 
     return (
         <div className="phm-details">
@@ -24,18 +59,18 @@ const MovieTile = props => {
                                 {
                                     genres && genres.map((genre, index) => (
                                         <div key={genre.id}>
-                                            <span>{genre.name}</span>
+                                            <Label color="blue">{genre.name}</Label>
                                         </div>
                                     ))
                                 }
                             </section>
                     </div>
-                    <div className="phm-time">
-                        <i class="fas fa-clock fa-1g"></i>
-                        <span>{length}</span>
-                    </div>
+                    <Label image color="blue">
+                        <Icon name="clock outline" />
+                        {length}
+                    </Label>
                 </div>
-                <span>{description}</span>
+                <span>{overview}</span>
             </div>
         </div>
     );
@@ -66,29 +101,25 @@ class Movie extends Component {
             release_date,
             genres,
             overview,
-            vote_average,
             runtime
         } = movie;
 
         const releaseYear = release_date ? release_date.substring(0 ,4) : null;
         const imgUrl = `http://image.tmdb.org/t/p/w1280/${backdrop_path}`;
-        const backgroundStyle = {
-            backgroundImage: `url(${imgUrl})`
-        };
 
         return (
             <div className="movie-page">
             {
                 isLoading
-                    ? <CircleSpinner isFetching={isLoading} />
+                    ? <Loader active inline='centered' />
                     : <div className="movie-page">
-                        <div className="movie-backdrop" style={backgroundStyle} />
                         <MovieTile
                             title={title}
                             year={releaseYear}
                             genres={genres}
                             time={runtime}
                             details={overview}
+                            imgUrl={imgUrl}
                         />
                       </div>
             }

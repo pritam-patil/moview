@@ -1,7 +1,6 @@
 import React from "react";
-import MovieSpinner from '../../components/CircleSpinner';
+import { Loader } from 'semantic-ui-react';
 import MovieListItem from "./MovieListItem";
-import styles from '../../header/header.css';
 import "./Movies.css";
 
 class Movies extends React.Component {
@@ -49,7 +48,7 @@ class Movies extends React.Component {
             <div className="movie-container">
                 <i class="fas fa-search fa-2x search" onClick={this.props.onClick}></i>
                 <ul className="movies">
-                    {isFetching && <MovieSpinner isFetching={isFetching} /> }
+                    {isFetching && <Loader active={isFetching} inline="centered" /> }
                     {!isFetching &&
                         !!orderedMovies && orderedMovies.map(movie => (
                             <MovieListItem key={movie.id} movie={movie} />

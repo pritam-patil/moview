@@ -1,19 +1,26 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { Header, Menu } from 'semantic-ui-react';
 import "./header.css";
-import image from '../../public/home-logo.jpeg';
 
-
-const Header = () => (
-    <div className="header">
-        <Link to={"/"}>
-            <i class="fas fa-film fa-3x"></i>
-        </Link>
-        <div className="content">
-            <h1>{"Moview"}</h1>
-            <h4>{"Find the right movie!"}</h4>
-        </div>
-    </div>
+const TopBar = () => (
+    <Menu>
+        <Menu.Item>
+            <Link to={"/"}>
+                <i class="fas fa-film fa-3x"></i>
+            </Link>
+        </Menu.Item>
+        <Menu.Item>
+            <Header as="h2">
+                <Header.Content>
+                    Moview
+                    <Header.Subheader>
+                        Find the Right Movie!
+                    </Header.Subheader>
+                </Header.Content>
+            </Header>
+        </Menu.Item>
+    </Menu>
 )
 
-export default Header;
+export default TopBar;

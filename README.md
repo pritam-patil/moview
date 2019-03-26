@@ -10,4 +10,5 @@
 - v0.7 Link tiles with movie info (routing)
 - v0.8 make click on site icon/name route to home
 - v0.9 open info in modal instead of new page
+- v1.0 show filters, now showing, UI revamp
 
