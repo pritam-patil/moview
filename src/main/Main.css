@@ -31,21 +31,21 @@
 }
 
 .genre-filter {
-    border: 1px solid hsl(240, 100%, 75%);
-    color: hsla(0, 0%, 100%);
+    border: 1px solid rgb(127, 127, 255);
+    color: rgb(255, 255, 255);
     border-radius: 8px;
     font-weight: bold;
     padding: 4px;
     margin: 0px 8px;
-    background-color: hsl(240, 74%, 70%);
+    background-color: rgb(127, 127, 255);
 }
 
 .year-filter,
 .time-filter,
 .rating-filter {
-    border: 1px solid hsl(240, 100%, 75%);
-    background-color: hsl(240, 100%, 70%);
-    color: hsla(0, 0%, 100%);
+    border: 1px solid rgb(127, 127, 255);
+    background-color: rgb(127, 127, 255);
+    color: rgb(255, 255, 255);
     font-weight: bold;
     max-width: 96px;
     margin: 0px 4px;
