@@ -18,6 +18,33 @@ const People = (props) => {
     );
 };
 
+const GridExampleDividedNumber = (props) => {
+    const { genres, time } = props;
+    
+    return (
+        <Grid columns={2} divided className="movie-card">
+            <Grid.Row className="movie-details">
+                <Grid.Column className="movie-genres">
+                    { false && <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' /> }
+                    <section>
+                        {
+                            genres && genres.map((genre, index) => (
+                                    <Label color="blue" style={{margin: '4px'}}>{genre.name}</Label>
+                            ))
+                        }
+                        
+                    </section>
+                </Grid.Column>
+                <Grid.Column>
+                    <Label image color="orange">
+                        <Icon name="clock outline"/>                            
+                        {time} min
+                    </Label>
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
+  );
+}
 
 const MovieTile = props => {
     const {
@@ -37,7 +64,8 @@ const MovieTile = props => {
                 <Card.Header className="phm-title-tile"> {movieName} ({releaseYear}) </Card.Header>
                 <Card.Header extra>  </Card.Header>
                 <Card.Meta>
-                    <Grid columns={2}>
+                    <GridExampleDividedNumber genres={genres} time={runtime} />
+                    { false && <Grid columns={2}>
                         <Grid.Row width={12}>
                             <Grid.Column width={8}>
                             <section className="genres">
@@ -49,7 +77,7 @@ const MovieTile = props => {
                                 
                             </section>
                             </Grid.Column>
-                            <Grid.Column width={8}>
+                            <Grid.Column width={4}>
                                 <Label style={{borderRadius: '16px', marginLeft: '4px'}} margin={4} image color="orange">
                                     <Icon name="clock outline"/>                            
                                     {runtime} min
@@ -57,6 +85,7 @@ const MovieTile = props => {
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
+                    }
                 </Card.Meta>
                 <Card.Description className="phm-description">
                     {overview}
