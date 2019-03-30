@@ -2,11 +2,27 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Grid, Image, Label, Icon } from 'semantic-ui-react';
 import { Loader } from 'semantic-ui-react';
+import { List } from "../../containers";
 import './Movie.css';
+
+// <span> Hi there </span>
+//             <span> {JSON.stringify(props.cast)} </span>
+//             <span> {JSON.stringify(props.cast)} </span>
+
+const People = (props) => {
+    return (
+        <div>
+            <List title="Cast" data={props.cast} />
+            <List title="Crew" data={props.crew} />
+        </div>
+    );
+};
+
 
 const MovieTile = props => {
     const {
         genres,
+        people,
         title: movieName,
         year: releaseYear,
         time: runtime,
@@ -45,6 +61,9 @@ const MovieTile = props => {
                 <Card.Description className="phm-description">
                     {overview}
                 </Card.Description>
+                <Card.Content extra>
+                    <People cast={people.cast} crew={people.crew} />
+                </Card.Content>
             </Card.Content>
         </Card>
     );
@@ -86,7 +105,10 @@ class Movie extends Component {
 
     componentDidMount() {
         const { movieId } = this.props.match.params;
-        const movieUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=651925d45022d1ae658063b443c99784&language=en-US`;
+        const movieUrl = `https://api.themoviedb.org/3/movie/${movieId}?` +
+        `api_key=651925d45022d1ae658063b443c99784` +
+        `&language=en-US` +
+        '&append_to_response=credits';
         fetch(movieUrl)
             .then(response => response.json())
             .then(data => this.setState({ movie: data, isLoading: false }))
@@ -96,16 +118,18 @@ class Movie extends Component {
     render() {
         const { isLoading, movie } = this.state;
         const {
-            title,
             backdrop_path,
-            release_date,
+            credits,
             genres,
             overview,
-            runtime
+            release_date,
+            runtime,
+            title,
         } = movie;
 
         const releaseYear = release_date ? release_date.substring(0 ,4) : null;
         const imgUrl = `http://image.tmdb.org/t/p/w1280/${backdrop_path}`;
+        console.log(">> credits: ", JSON.stringify(credits));
 
         return (
             <div className="movie-page">
@@ -117,6 +141,7 @@ class Movie extends Component {
                             title={title}
                             year={releaseYear}
                             genres={genres}
+                            people={credits}
                             time={runtime}
                             details={overview}
                             imgUrl={imgUrl}
