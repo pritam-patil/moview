@@ -15,7 +15,7 @@ const TopBar = () => (
                 <Header.Content>
                     Moview
                     <Header.Subheader>
-                        Find the Right Movie!
+                        Find the right movie!
                     </Header.Subheader>
                 </Header.Content>
             </Header>
