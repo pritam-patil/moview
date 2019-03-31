@@ -9,6 +9,8 @@
 # production
 /build
 /dist
+/public
+/backup
 
 # misc
 .idea/
