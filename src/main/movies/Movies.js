@@ -1,7 +1,24 @@
 import React from "react";
-import { Loader } from 'semantic-ui-react';
+import { Card, Grid, Loader, Placeholder, Image, Segment } from 'semantic-ui-react';
+import MovieListPlaceholder from '../../containers/home-list-placeholder';
 import MovieListItem from "./MovieListItem";
 import "./Movies.css";
+
+const GridGroup = ({ isFetching, movies }) => {
+    if (isFetching) {
+        return <MovieListPlaceholder />;
+    }
+
+    return (
+        <Card.Group itemsPerRow={4} doubling>
+            { !!movies && movies.map(movie => (
+                            <MovieListItem key={movie.id} movie={movie} />
+                        ))
+            }
+        </Card.Group>
+    )
+
+}
 
 class Movies extends React.Component {
     constructor(props) {
@@ -47,7 +64,7 @@ class Movies extends React.Component {
         return (
             <div className="movie-container">
                 <i class="fas fa-search fa-2x search" onClick={this.props.onClick}></i>
-                <ul className="movies">
+                { false && <ul className="movies">
                     {isFetching && <Loader active={isFetching} inline="centered" /> }
                     {!isFetching &&
                         !!orderedMovies && orderedMovies.map(movie => (
@@ -55,6 +72,11 @@ class Movies extends React.Component {
                         ))
                     }
                 </ul>
+                }
+                <GridGroup
+                    isFetching={isFetching}
+                    movies={orderedMovies}
+                />
             </div>
         )
     }

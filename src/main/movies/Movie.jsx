@@ -1,20 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Grid, Image, Label, Icon } from 'semantic-ui-react';
 import { Loader } from 'semantic-ui-react';
-import { List } from "../../containers";
+import { List, MovieListLoader } from "../../containers";
 import './Movie.css';
-
-// <span> Hi there </span>
-//             <span> {JSON.stringify(props.cast)} </span>
-//             <span> {JSON.stringify(props.cast)} </span>
 
 const People = (props) => {
     return (
-        <div>
+        <Fragment>
             <List title="Cast" data={props.cast} />
             <List title="Crew" data={props.crew} />
-        </div>
+        </Fragment>
     );
 };
 
@@ -58,7 +54,7 @@ const MovieTile = props => {
     const length = `${runtime} mins`;
 
     return (
-        <Card fluid>
+        <Card active fluid>
             <Image src={props.imgUrl} />
             <Card.Content>
                 <Card.Header className="phm-title-tile"> {movieName} ({releaseYear}) </Card.Header>
@@ -77,11 +73,9 @@ const MovieTile = props => {
                                 
                             </section>
                             </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Label style={{borderRadius: '16px', marginLeft: '4px'}} margin={4} image color="orange">
-                                    <Icon name="clock outline"/>                            
+                            <Grid.Column width={4} floated="right">
+                                    <Icon name="clock outline" bordered/>
                                     {runtime} min
-                                </Label>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -164,7 +158,7 @@ class Movie extends Component {
             <div className="movie-page">
             {
                 isLoading
-                    ? <Loader active inline='centered' />
+                    ? <MovieListLoader />
                     : <div className="movie-page">
                         <MovieTile
                             title={title}
