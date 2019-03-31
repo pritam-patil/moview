@@ -103,7 +103,9 @@ const SemanticItem = ({ movie={} }) => {
     return (
             <Card fluid>
                 <Card.Content>
-                    <Image size="medium" src={imgUrl} />
+                    <Image size="medium" wrapped>
+                        <img alt={title} />
+                    </Image>
                 </Card.Content>
                 <Card.Header>
                     { title }
@@ -137,7 +139,9 @@ export default (props) => {
 
     return (
         <Card className="default-container" href={linkTo}>
-            <Image size="medium" src={imgUrl} />
+            <Image size="medium" wrapped>
+                <img src={imgUrl} alt={title} />
+            </Image>
             <Card.Content>
             <Card.Header>
                 <LineEllipsis
@@ -170,7 +174,7 @@ export default (props) => {
                             }
                         </Grid.Column>
                         <Grid.Column floated="right" width={4} className={"view-page"}>
-                            <Icon name="angle right" />
+                            <Icon name="angle right" role="main"/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

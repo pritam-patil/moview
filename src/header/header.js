@@ -4,14 +4,14 @@ import { Header, Menu } from 'semantic-ui-react';
 import "./header.css";
 
 const TopBar = () => (
-    <Menu>
+    <Menu className="header" role="banner">
         <Menu.Item>
             <Link to={"/"}>
                 <i class="fas fa-film fa-3x"></i>
             </Link>
         </Menu.Item>
         <Menu.Item>
-            <Header as="h2">
+            <Header as="h2" role="title">
                 <Header.Content>
                     Moview
                     <Header.Subheader>

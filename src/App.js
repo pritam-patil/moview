@@ -10,7 +10,7 @@ class App extends Component {
     return (
         <BrowserRouter>
           <div className="App">
-            <Header />
+            <Header key='moview-header'/>
               <Switch>
                   <Route exact path="/" component={Main} />
                   <Route path="/movies/:movieId" component={Movie} />

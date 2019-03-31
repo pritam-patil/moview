@@ -15,7 +15,7 @@ class Navigation extends React.Component {
     render() {
         const { genre, genres, onModalClose, onGenreChange, onChange, year, rating, runtime, onSearchButtonClick } = this.props;
         return (
-            <section className="navigation">
+            <section className="navigation" search role="search">
                 <Selection
                     genre={genre}
                     genres={genres}

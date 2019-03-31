@@ -62,7 +62,7 @@ class Movies extends React.Component {
         const { isFetching } = this.state;
         const orderedMovies = this.state.movies || [];
         return (
-            <div className="movie-container">
+            <div className="movie-container" main role="main">
                 <i class="fas fa-search fa-2x search" onClick={this.props.onClick}></i>
                 { false && <ul className="movies">
                     {isFetching && <Loader active={isFetching} inline="centered" /> }
