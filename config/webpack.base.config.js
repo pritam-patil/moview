@@ -52,7 +52,7 @@ module.exports = env => {
           }),
         ],
         output: {
-          filename: '[name].[hash].js',
+          filename: '[name].bundle.js',
           path: path.resolve(__dirname, '..', 'dist'),
           publicPath: '/',
         },

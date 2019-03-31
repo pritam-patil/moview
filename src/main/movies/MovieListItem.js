@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import LineEllipsis from 'react-lines-ellipsis';
-import { Card, Icon } from 'semantic-ui-react';
+import { Card, Grid, Icon, Image } from 'semantic-ui-react';
 import { LazyLoad } from '../../components';
 import "./MovieListItem.css";
 
@@ -86,4 +87,109 @@ const MovieListItem = ({ movie={} }) => {
     );
 };
 
-export default MovieListItem;
+
+const SemanticItem = ({ movie={} }) => {
+    const {
+        id,
+        title,
+        poster_path,
+        release_date,
+        overview,
+        vote_average,
+    } = movie;
+
+    const imgUrl = `https://image.tmdb.org/t/p/w342/${poster_path}`;
+
+    return (
+            <Card fluid>
+                <Card.Content>
+                    <Image size="medium" src={imgUrl} />
+                </Card.Content>
+                <Card.Header>
+                    { title }
+                </Card.Header>
+                <Card.Description>
+                <LineEllipsis
+                        text={overview}
+                        maxLine={3}
+                        ellipsis={`...`}
+                        trimRight
+                        basedOn={'letters'}
+                      />
+                </Card.Description>
+            </Card>
+    )
+};
+
+export default (props) => {
+    const {
+        id,
+        title,
+        poster_path,
+        release_date,
+        overview,
+        vote_average,
+    } = props.movie;
+
+    const imgUrl = `https://image.tmdb.org/t/p/w342/${poster_path}`;
+    const year = release_date && release_date.substring(0, 4);
+    const linkTo = `/movies/${id}`;
+
+    return (
+        <Card className="default-container" href={linkTo}>
+            <Image size="medium" src={imgUrl} />
+            <Card.Content>
+            <Card.Header>
+                <LineEllipsis
+                    text={title}
+                    maxLine={2}
+                    ellipsis={`...`}
+                    trimRight
+                    basedOn={'letters'}
+                />
+            </Card.Header>
+            <Card.Description>
+                    <LineEllipsis
+                        text={overview}
+                        maxLine={3}
+                        ellipsis={` ...`}
+                        trimRight={false}
+                        basedOn={'words'}
+                    />
+            </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+                <Grid columns={3} divided>
+                    <Grid.Row>
+                        <Grid.Column>
+                            {vote_average}
+                        </Grid.Column>
+                        <Grid.Column>
+                            {
+                                year
+                            }
+                        </Grid.Column>
+                        <Grid.Column floated="right" width={4} className={"view-page"}>
+                            <Icon name="angle right" />
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </Card.Content>
+        </Card>
+    )
+}
+
+// componentName.propTypes = {
+
+// }
+
+
+// SemanticItem.propTypes = {
+//     movie: PropTypes.
+//     id: PropTypes.string,
+//     title: PropTypes.string,
+//     overview: PropTypes.string,
+// };
+
+
+// export default SemanticItem;
