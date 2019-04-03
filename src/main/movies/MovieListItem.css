@@ -59,10 +59,11 @@
 }
 
 .average {
-    display: flex;
+    display: flex !important;
     flex-direction: row;
     color: rgba(226,122,63, 0.9);
     flex-wrap: wrap;
+    flex-basis: 40%;
 }
 
 .year {
@@ -103,4 +104,6 @@
 
 .view-page {
     align-self: baseline;
+    color: blue !important;
+    padding-right: 24px !important;
 }

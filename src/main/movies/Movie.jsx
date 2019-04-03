@@ -1,20 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Grid, Image, Label, Icon } from 'semantic-ui-react';
-import { Loader } from 'semantic-ui-react';
-import { List, MovieListLoader } from "../../containers";
+import { Credits as People, MovieDetailsHolder } from "../../containers";
 import './Movie.css';
 
-const People = (props) => {
-    return (
-        <Fragment>
-            <List title="Cast" data={props.cast} />
-            <List title="Crew" data={props.crew} />
-        </Fragment>
-    );
-};
-
-const GridExampleDividedNumber = (props) => {
+const MovieDetails = (props) => {
     const { genres, time } = props;
     
     return (
@@ -51,35 +41,15 @@ const MovieTile = props => {
         time: runtime,
         details: overview
     } = props;
-    const length = `${runtime} mins`;
 
     return (
-        <Card active fluid>
+        <Card active fluid article role="article">
             <Image src={props.imgUrl} />
             <Card.Content>
                 <Card.Header className="phm-title-tile"> {movieName} ({releaseYear}) </Card.Header>
                 <Card.Header extra>  </Card.Header>
                 <Card.Meta>
-                    <GridExampleDividedNumber genres={genres} time={runtime} />
-                    { false && <Grid columns={2}>
-                        <Grid.Row width={12}>
-                            <Grid.Column width={8}>
-                            <section className="genres">
-                                {
-                                    genres && genres.map((genre, index) => (
-                                            <Label color="blue" style={{margin: '4px'}}>{genre.name}</Label>
-                                    ))
-                                }
-                                
-                            </section>
-                            </Grid.Column>
-                            <Grid.Column width={4} floated="right">
-                                    <Icon name="clock outline" bordered/>
-                                    {runtime} min
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                    }
+                    <MovieDetails genres={genres} time={runtime} />
                 </Card.Meta>
                 <Card.Description className="phm-description">
                     {overview}
@@ -90,33 +60,10 @@ const MovieTile = props => {
             </Card.Content>
         </Card>
     );
-
-    return (
-        <div className="phm-details">
-            <div className="phm-details-tile">
-                <div className="phm-header">
-                    <div className="phm-title-tile">
-                        <h1>{`${movieName} (${releaseYear})`}</h1> 
-                        <section className="genres">
-                                {
-                                    genres && genres.map((genre, index) => (
-                                        <div key={genre.id}>
-                                            <Label color="blue">{genre.name}</Label>
-                                        </div>
-                                    ))
-                                }
-                            </section>
-                    </div>
-                    <Label image color="blue">
-                        <Icon name="clock outline" />
-                        {length}
-                    </Label>
-                </div>
-                <span>{overview}</span>
-            </div>
-        </div>
-    );
 };
+
+const MemoTile = React.memo(MovieTile);
+
 class Movie extends Component {
     constructor(props) {
         super(props);
@@ -140,6 +87,7 @@ class Movie extends Component {
 
     render() {
         const { isLoading, movie } = this.state;
+        let renderComponent = <MovieDetailsHolder />;
         const {
             backdrop_path,
             credits,
@@ -152,25 +100,22 @@ class Movie extends Component {
 
         const releaseYear = release_date ? release_date.substring(0 ,4) : null;
         const imgUrl = `http://image.tmdb.org/t/p/w1280/${backdrop_path}`;
-        console.log(">> credits: ", JSON.stringify(credits));
+        
+        if (!isLoading) {
+            renderComponent =  <MemoTile
+                                    title={title}
+                                    year={releaseYear}
+                                    genres={genres}
+                                    people={credits}
+                                    time={runtime}
+                                    details={overview}
+                                    imgUrl={imgUrl}
+                                />;
+        }
 
         return (
             <div className="movie-page">
-            {
-                isLoading
-                    ? <MovieListLoader />
-                    : <div className="movie-page">
-                        <MovieTile
-                            title={title}
-                            year={releaseYear}
-                            genres={genres}
-                            people={credits}
-                            time={runtime}
-                            details={overview}
-                            imgUrl={imgUrl}
-                        />
-                      </div>
-            }
+                { renderComponent }
                 <Link to={`/`} className="go-back">
                     <i class="fas fa-arrow-circle-left fa-2x"></i>
                 </Link>

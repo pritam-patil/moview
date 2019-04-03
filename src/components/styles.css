@@ -36,3 +36,14 @@
         min-height: 192px;
     }
 }
+
+.credits-label {
+    background-color: inherit !important;
+    border: none !important;
+}
+
+.credits-label-sec {
+    background-color: inherit !important;
+    border: none !important;
+    font-weight: 100 !important;
+}

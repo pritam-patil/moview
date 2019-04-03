@@ -1,7 +1,9 @@
 import React from "react";
-import { Card, Grid, Loader, Placeholder, Image, Segment } from 'semantic-ui-react';
-import MovieListPlaceholder from '../../containers/home-list-placeholder';
+import { Card, Loader } from 'semantic-ui-react';
 import MovieListItem from "./MovieListItem";
+import { KEY_CODES } from '../../constants';
+import MovieListPlaceholder from '../../containers/home-list-placeholder';
+
 import "./Movies.css";
 
 const GridGroup = ({ isFetching, movies }) => {
@@ -30,7 +32,18 @@ class Movies extends React.Component {
         this.storeMovies = this.storeMovies.bind(this);
     }
 
+    focusSearchButton = (e) => {
+        const customSearch = document.getElementById("custom-search");
+        // enter key's code
+        const { ENTER, SPACEBAR } = KEY_CODES;
+        if ([ENTER, SPACEBAR].includes(e.keyCode)) {
+            e.preventDefault();
+            customSearch.click();
+        }
+    }
+
     componentDidMount() {
+        document.addEventListener("keyup", this.focusSearchButton, false);
         this.fetchMovies(this.props.url);
     }
 
@@ -63,7 +76,12 @@ class Movies extends React.Component {
         const orderedMovies = this.state.movies || [];
         return (
             <div className="movie-container" main role="main">
-                <i class="fas fa-search fa-2x search" onClick={this.props.onClick}></i>
+                <i
+                    class="fas fa-search fa-2x search"
+                    id="custom-search"
+                    tabIndex={0}
+                    onClick={this.props.onClick}
+                />
                 { false && <ul className="movies">
                     {isFetching && <Loader active={isFetching} inline="centered" /> }
                     {!isFetching &&
@@ -79,6 +97,11 @@ class Movies extends React.Component {
                 />
             </div>
         )
+    }
+
+    componentWillUnmount() {
+        // select event listener added for custom search button
+        document.removeEventListener('keyup', this.focusSearchButton, false);
     }
 }
 
