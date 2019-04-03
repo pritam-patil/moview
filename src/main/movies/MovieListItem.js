@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import LineEllipsis from 'react-lines-ellipsis';
-import { Card, Grid, Icon, Image } from 'semantic-ui-react';
+import { Card, Grid, Icon, Image, Rating, Label } from 'semantic-ui-react';
 import { LazyLoad } from '../../components';
 import "./MovieListItem.css";
 
@@ -138,7 +138,11 @@ export default (props) => {
     const linkTo = `/movies/${id}`;
 
     return (
-        <Card className="default-container" href={linkTo}>
+        <Card
+            href={linkTo}
+            article
+            role="article"    
+        >
             <Image size="medium" wrapped>
                 <img src={imgUrl} alt={title} />
             </Image>
@@ -165,16 +169,14 @@ export default (props) => {
             <Card.Content extra>
                 <Grid columns={3} divided>
                     <Grid.Row>
-                        <Grid.Column>
-                            {vote_average}
+                        <Grid.Column width={6} className="average">
+                            <MovieRatings title={title} vote_average={vote_average} />
                         </Grid.Column>
-                        <Grid.Column>
-                            {
-                                year
-                            }
+                        <Grid.Column width={4}>
+                            <Label basic> {year} </Label>
                         </Grid.Column>
-                        <Grid.Column floated="right" width={4} className={"view-page"}>
-                            <Icon name="angle right" role="main"/>
+                        <Grid.Column width={2} className={"view-page"} floated="right">
+                            <Icon name="angle right" primary role="navigation"/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -183,17 +185,3 @@ export default (props) => {
     )
 }
 
-// componentName.propTypes = {
-
-// }
-
-
-// SemanticItem.propTypes = {
-//     movie: PropTypes.
-//     id: PropTypes.string,
-//     title: PropTypes.string,
-//     overview: PropTypes.string,
-// };
-
-
-// export default SemanticItem;

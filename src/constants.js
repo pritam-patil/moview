@@ -29,3 +29,8 @@ export const DEFAULT_FILTERS = {
   MIN_TIME_MINS: 60,
   MAX_TIME_MINS: 120
 };
+
+export const KEY_CODES = {
+  ENTER: 13,
+  SPACEBAR: 32,
+};

@@ -2,6 +2,7 @@ import React from "react";
 import Modal from 'react-responsive-modal';
 import { Menu, Segment, Loader } from 'semantic-ui-react';
 import AirbrakeClient from 'airbrake-js';
+import { ErrorPage } from '../containers';
 import { DEFAULT_FILTERS } from '../constants';
 import Navigation from "./navigation/Navigation";
 
@@ -163,7 +164,7 @@ class Main extends React.Component {
         const { hasError, isFetching, isOpen } = this.state;
         
         if (hasError) {
-            return <h1> Oops, something went wrong. </h1>;
+            return <ErrorPage />;
         }
         
         const { genre, runtime, rating } = this.state;

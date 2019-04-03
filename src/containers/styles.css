@@ -1,0 +1,21 @@
+.ph-card {
+    width: inherit !important;
+    max-width: 100%;
+}
+
+.ph-image {
+    max-width: 100% !important;
+    max-height: 24rem !important;
+}
+
+.ph-details {
+    max-width: inherit !important;
+}
+
+.credits {
+    margin: 1rem 0rem;
+}
+
+.error-image {
+    width: 50% !important;
+}

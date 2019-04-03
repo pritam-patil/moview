@@ -1,49 +1,37 @@
-import React, { Component } from 'react'
-import {
-    Divider,
-    Label,
-    List
-} from 'semantic-ui-react';
+import React from 'react'
+import { Grid } from 'semantic-ui-react';
 import PropTypes from 'prop-types'
 import { ListItem } from "../components";
 
 const LazyList = props => {
     const imageBase = 'https://image.tmdb.org/t/p/w300';
-    const { data, title } = props;
+    const { data } = props;
     return (
-    <List relaxed>
-        <Label basic color="grey"> { title } </Label>
-        {
-            data && data.slice(0,9).map((item, index) => {
-                const { character, name, profile_path } = item;
-                const src = 'http://via.placeholder.com/300x450'; 
-                return (
-                    <ListItem
-                        character={character}
-                        name={name}
-                        key={index}
-                        src={src}
-                    />
-                );
-            })
-        }
-    </List>
+    <Grid columns={3}>
+    {
+        data && data.slice(0,9).map((item, index) => {
+            const { character, name, profile_path } = item;
+            const role = character || item.job;
+            const src = profile_path 
+                        ? (imageBase + profile_path)
+                        : 'http://via.placeholder.com/300x450';
+            return (
+                <ListItem
+                    character={role}
+                    name={name}
+                    key={index}
+                    src={src}
+                />
+            );
+        })
+    }
+    </Grid>
   )
 };
 
-class componentName extends Component {
-
-}
-
-
 LazyList.propTypes = {
     data: PropTypes.shape(),
-    title: PropTypes.string,
 };
-
-LazyList.defaultProps = {
-    title: 'Items',
-}
 
 export default LazyList;
 
