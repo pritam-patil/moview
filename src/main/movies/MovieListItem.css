@@ -59,11 +59,14 @@
 }
 
 .average {
-    display: flex !important;
-    flex-direction: row;
     color: rgba(226,122,63, 0.9);
-    flex-wrap: wrap;
+    display: flex !important;
     flex-basis: 40%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 14px;
+    justify-content: center;
+    padding: 4px !important;
 }
 
 .year {

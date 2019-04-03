@@ -3,7 +3,7 @@ import Modal from 'react-responsive-modal';
 import { Menu, Segment, Loader } from 'semantic-ui-react';
 import AirbrakeClient from 'airbrake-js';
 import { ErrorPage } from '../containers';
-import { DEFAULT_FILTERS } from '../constants';
+import { DEFAULT_FILTERS, TAB_DEFAULT_NAME } from '../constants';
 import Navigation from "./navigation/Navigation";
 
 import { moviesLocation, hasDefaultPreferences } from '../components/selectors/movies-url';
@@ -38,7 +38,7 @@ class Main extends React.Component {
     state = {
         url: `https://api.themoviedb.org/3/genre/movie/list?api_key=651925d45022d1ae658063b443c99784&language=en-US`,
         moviesUrl: `https://api.themoviedb.org/3/discover/movie?api_key=651925d45022d1ae658063b443c99784&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`,
-        genre: GENRE,
+        genre: null,
         genres: [],
         year: {
             label: "year",
@@ -131,7 +131,7 @@ class Main extends React.Component {
 
     generateUrl = () => {
         const {genres, year, rating, runtime } = this.state;
-        const selectedGenre = genres.find( genre => genre.name === this.state.genre);
+        const selectedGenre = genres.find( genre => genre.name === (this.state.genre || 'Action'));
         const genreId = selectedGenre.id;
 
         const moviesUrl = `https://api.themoviedb.org/3/discover/movie?` +
@@ -169,7 +169,7 @@ class Main extends React.Component {
         
         const { genre, runtime, rating } = this.state;
         const defaults = hasDefaultPreferences(this.state);
-
+        const tabName =  genre || TAB_DEFAULT_NAME;
         return (
             <div className="main">
                 <Modal 
@@ -193,12 +193,16 @@ class Main extends React.Component {
                 { isFetching && !this.state.open && <Loader active={isFetching} />}
                 {
                     <div>
-                  <Menu tabular attached="top">
-                    <Menu.Item active name="now showing"></Menu.Item>   
-                    </Menu>
-                    <Segment attached="bottom">
-                            <Movies genre={this.state.genre} url={this.state.moviesUrl} onClick={this.toggleModal}/>
-                    </Segment>
+                        <Menu tabular attached="top">
+                            <Menu.Item
+                                active
+                                color={tabName === TAB_DEFAULT_NAME ? 'inherit' : 'blue'}
+                                name={tabName}
+                            />
+                        </Menu>
+                        <Segment attached="bottom">
+                                <Movies genre={this.state.genre} url={this.state.moviesUrl} onClick={this.toggleModal}/>
+                        </Segment>
                     </div>
                 }
             </div>
