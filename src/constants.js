@@ -34,3 +34,5 @@ export const KEY_CODES = {
   ENTER: 13,
   SPACEBAR: 32,
 };
+
+export const TAB_DEFAULT_NAME = 'Now playing';
