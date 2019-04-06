@@ -3,6 +3,17 @@
     flex-direction: column;
 }
 
+.main .filter {
+    color: blue;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 3;
+    border: 2px solid #e27a3f;
+    padding: 8px;
+}
+
+
 .modal-custom {
     border-radius: 4px;
 }

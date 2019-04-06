@@ -1,9 +1,14 @@
 import React from "react";
 import Modal from 'react-responsive-modal';
-import { Menu, Segment, Loader } from 'semantic-ui-react';
+import {
+    Icon,
+    Menu,
+    Segment,
+    Loader
+} from 'semantic-ui-react';
 import AirbrakeClient from 'airbrake-js';
 import { ErrorPage } from '../containers';
-import { DEFAULT_FILTERS, TAB_DEFAULT_NAME } from '../constants';
+import { DEFAULT_FILTERS, MOVIE_GENRES, TAB_DEFAULT_NAME } from '../constants';
 import Navigation from "./navigation/Navigation";
 
 import { moviesLocation, hasDefaultPreferences } from '../components/selectors/movies-url';
@@ -12,7 +17,6 @@ import "./Main.css"
 
 const DEFAULT_GENRE = 'Comedy';
 const {
- GENRE,
  MIN_YEAR,
  MAX_YEAR,
  MIN_RATING,
@@ -39,11 +43,10 @@ class Main extends React.Component {
         url: `https://api.themoviedb.org/3/genre/movie/list?api_key=651925d45022d1ae658063b443c99784&language=en-US`,
         moviesUrl: `https://api.themoviedb.org/3/discover/movie?api_key=651925d45022d1ae658063b443c99784&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`,
         genre: null,
-        genres: [],
         year: {
             label: "year",
             min: 1970,
-            max: 2018,
+            max: 2019,
             step: 1,
             value: { min: MIN_YEAR , max: MAX_YEAR }
         },
@@ -88,10 +91,6 @@ class Main extends React.Component {
         this.setState({ genre: event.target.value });
     };
 
-    setGenres = genres => {
-        this.setState({genres});
-    };
-
     onChange = data => {
         this.setState({
             [data.type]: {
@@ -112,8 +111,8 @@ class Main extends React.Component {
     };
 
     getDefaultURL = () => {
-      const {genres, year, rating, runtime } = this.state;
-      const selectedGenre = genres.find( genre => genre.name === DEFAULT_GENRE);
+      const { year, rating, runtime } = this.state;
+      const selectedGenre = MOVIE_GENRES.find( genre => genre.name === DEFAULT_GENRE);
       const genreId = selectedGenre.id;
 
       return `https://api.themoviedb.org/3/discover/movie?` +
@@ -130,8 +129,8 @@ class Main extends React.Component {
     };
 
     generateUrl = () => {
-        const {genres, year, rating, runtime } = this.state;
-        const selectedGenre = genres.find( genre => genre.name === (this.state.genre || 'Action'));
+        const { year, rating, runtime } = this.state;
+        const selectedGenre = MOVIE_GENRES.find( genre => genre.name === (this.state.genre || 'Action'));
         const genreId = selectedGenre.id;
 
         const moviesUrl = `https://api.themoviedb.org/3/discover/movie?` +
@@ -172,6 +171,15 @@ class Main extends React.Component {
         const tabName =  genre || TAB_DEFAULT_NAME;
         return (
             <div className="main">
+                <Icon
+                    circular
+                    id="custom-search"
+                    name="filter"
+                    size="big"
+                    tabIndex={2}
+                    onClick={this.toggleModal}
+                    className="filter"
+                />
                 <Modal 
                   classNames={{modal: "modal-custom"}}
                   open={isOpen}
@@ -183,7 +191,6 @@ class Main extends React.Component {
                             onChange={this.onChange}
                             onGenreChange={this.onGenreChange}
                             onModalClose={this.onCloseModal}
-                            setGenres={this.setGenres}
                             onSearchButtonClick={this.onSearchButtonClick}
                             onClose={this.toggleModal}
                             {...this.state}
