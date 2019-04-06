@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Grid, Image, Label, Icon } from 'semantic-ui-react';
+import { Rating } from '../../components';
 import { Credits as People, MovieDetailsHolder } from "../../containers";
 import './Movie.css';
 
 const MovieDetails = (props) => {
-    const { genres, time } = props;
+    const { genres, time, title, rating } = props;
     
     return (
-        <Grid columns={2} divided className="movie-card">
+        <Grid columns={3} divided className="movie-card">
             <Grid.Row className="movie-details">
                 <Grid.Column className="movie-genres">
                     { false && <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' /> }
@@ -21,7 +22,10 @@ const MovieDetails = (props) => {
                         
                     </section>
                 </Grid.Column>
-                <Grid.Column>
+                <Grid.Column width={3}>
+                    <Rating title={title} vote_average={rating} />
+                </Grid.Column>
+                <Grid.Column width={5}>
                     <Label image color="orange">
                         <Icon name="clock outline"/>                            
                         {time} min
@@ -39,7 +43,8 @@ const MovieTile = props => {
         title: movieName,
         year: releaseYear,
         time: runtime,
-        details: overview
+        details: overview,
+        rating,
     } = props;
 
     return (
@@ -49,7 +54,12 @@ const MovieTile = props => {
                 <Card.Header className="phm-title-tile"> {movieName} ({releaseYear}) </Card.Header>
                 <Card.Header extra>  </Card.Header>
                 <Card.Meta>
-                    <MovieDetails genres={genres} time={runtime} />
+                    <MovieDetails
+                        genres={genres}
+                        time={runtime}
+                        title={movieName}
+                        rating={rating}
+                    />
                 </Card.Meta>
                 <Card.Description className="phm-description">
                     {overview}
@@ -62,7 +72,9 @@ const MovieTile = props => {
     );
 };
 
-const MemoTile = React.memo(MovieTile);
+// const MemoTile = React.memo(MovieTile);
+
+const MemoTile = MovieTile;
 
 class Movie extends Component {
     constructor(props) {
@@ -79,11 +91,19 @@ class Movie extends Component {
         `api_key=651925d45022d1ae658063b443c99784` +
         `&language=en-US` +
         '&append_to_response=credits';
+        
         fetch(movieUrl)
             .then(response => response.json())
             .then(data => this.setState({ movie: data, isLoading: false }))
             .catch(err => console.log("error:", err));
     }
+
+    // shouldComponentUpdate(nextProps) {
+    //     const currentId = this.props.match.params.movieId;
+    //     const nextId = nextProps.match.params.movieId;
+        
+    //     return (currentId !== nextId);
+    // }
 
     render() {
         const { isLoading, movie } = this.state;
@@ -96,6 +116,7 @@ class Movie extends Component {
             release_date,
             runtime,
             title,
+            vote_average,
         } = movie;
 
         const releaseYear = release_date ? release_date.substring(0 ,4) : null;
@@ -110,6 +131,7 @@ class Movie extends Component {
                                     time={runtime}
                                     details={overview}
                                     imgUrl={imgUrl}
+                                    rating={vote_average}
                                 />;
         }
 

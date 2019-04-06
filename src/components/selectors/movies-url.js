@@ -1,5 +1,5 @@
 import { createSelector }  from 'reselect';
-import { DEFAULT_FILTERS } from '../../constants';
+import { DEFAULT_FILTERS, MOVIE_GENRES } from '../../constants';
 
 const {
   GENRE: DEFAULT_GENRE,
@@ -13,7 +13,7 @@ const {
 
 const defaultGenreSelector = state => state.genre === DEFAULT_GENRE;
 
-const genreSelector = state => state.genres.find( genre => genre.name === state.genre);
+const genreSelector = state => MOVIE_GENRES.find( genre => genre.name === state.genre);
 
 const yearSelector = state => state.year;
 

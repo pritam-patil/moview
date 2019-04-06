@@ -13,12 +13,13 @@ class Slider extends React.Component {
     };
 
     render() {
-        const { label } = this.props;
+        const { label, sliderId } = this.props;
         const { min, max, step, value } = this.props.data;
         return (
             <div className="slider">
-                <label>{label}</label>
+                <label htmlFor={sliderId}>{label}</label>
                 <InputRange
+                    id={sliderId}
                     minValue={min}
                     maxValue={max}
                     step={step}

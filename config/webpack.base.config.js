@@ -51,6 +51,7 @@ module.exports = env => {
             'process.env.PLATFORM': JSON.stringify(env.PLATFORM)
           }),
           new CopyWebpackPlugin([{ from: 'src/static/'}]),
+          new webpack.HotModuleReplacementPlugin(),
         ],
         output: {
           filename: '[name].bundle.js',

@@ -3,33 +3,8 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import LineEllipsis from 'react-lines-ellipsis';
 import { Card, Grid, Icon, Image, Rating, Label } from 'semantic-ui-react';
-import { LazyLoad } from '../../components';
+import { LazyLoad, Rating as MovieRatings } from '../../components';
 import "./MovieListItem.css";
-
-const DEFAULT_RATING = 3;
-const MAX_INPUT_RATING = 10;
-const OUTPUT_RATING = 5;
-
-const getRatingKey = (title, rating) => `${title}-${rating}`;
-
-const MovieRatings = ({ title, vote_average = DEFAULT_RATING }) => {
-    const fiveStars = vote_average * OUTPUT_RATING / MAX_INPUT_RATING;
-    const fraction = OUTPUT_RATING - fiveStars;
-    let fullStars = [];
-
-    for (let i=0; i < Math.floor(fiveStars); i++) {
-        let key = getRatingKey(title, fiveStars + i);
-        fullStars.push(<i key={key} class="fas fa-star fa-xs"></i>);
-    }
-
-    if (fraction) {
-        fullStars.push(<i key={getRatingKey(title, 2*fiveStars)} class="fas fa-star-half fa-xs"></i>)
-    }
-
-    return (
-        fullStars
-    )
-};
 
 const CardExampleCardProps = ({title, poster_path, overview, release_date}) => (
     <Card
@@ -66,9 +41,7 @@ const MovieListItem = ({ movie={} }) => {
                       />
                     </div>
                     <div className="movie-details">
-                        <div className="average">
-                            <MovieRatings title={title} vote_average={vote_average} />
-                        </div>
+                        <MovieRatings title={title} vote_average={vote_average} />
                         <div className="year">{year}</div>
                     </div>
                     <div className="more-details">

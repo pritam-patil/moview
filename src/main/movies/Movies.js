@@ -35,8 +35,8 @@ class Movies extends React.Component {
     focusSearchButton = (e) => {
         const customSearch = document.getElementById("custom-search");
         // enter key's code
-        const { ENTER, SPACEBAR } = KEY_CODES;
-        if ([ENTER, SPACEBAR].includes(e.keyCode)) {
+        const { ENTER } = KEY_CODES;
+        if ([ENTER].includes(e.keyCode)) {
             e.preventDefault();
             customSearch.click();
         }
@@ -76,12 +76,6 @@ class Movies extends React.Component {
         const orderedMovies = this.state.movies || [];
         return (
             <div className="movie-container" main role="main">
-                <i
-                    class="fas fa-search fa-2x search"
-                    id="custom-search"
-                    tabIndex={0}
-                    onClick={this.props.onClick}
-                />
                 { false && <ul className="movies">
                     {isFetching && <Loader active={isFetching} inline="centered" /> }
                     {!isFetching &&
