@@ -72,10 +72,7 @@ const MovieTile = props => {
     );
 };
 
-// const MemoTile = React.memo(MovieTile);
-
-const MemoTile = MovieTile;
-
+const MemoTile = React.memo(MovieTile);
 class Movie extends Component {
     constructor(props) {
         super(props);
@@ -85,8 +82,7 @@ class Movie extends Component {
         }
     }
 
-    componentDidMount() {
-        const { movieId } = this.props.match.params;
+    fetchMovie = movieId => {
         const movieUrl = `https://api.themoviedb.org/3/movie/${movieId}?` +
         `api_key=651925d45022d1ae658063b443c99784` +
         `&language=en-US` +
@@ -98,12 +94,19 @@ class Movie extends Component {
             .catch(err => console.log("error:", err));
     }
 
-    // shouldComponentUpdate(nextProps) {
-    //     const currentId = this.props.match.params.movieId;
-    //     const nextId = nextProps.match.params.movieId;
-        
-    //     return (currentId !== nextId);
-    // }
+    componentDidMount() {
+        const { movieId } = this.props.match.params;
+        this.fetchMovie(movieId);
+    }
+
+    componentDidUpdate(prevProps) {
+        const { movieId } = this.props.match.params;
+        const { movieId: prevId } = prevProps.match.params;
+
+        if (!_.isEqual(movieId, prevId)) {
+            this.fetchMovie(movieId);
+        }
+    }
 
     render() {
         const { isLoading, movie } = this.state;
