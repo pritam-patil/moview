@@ -61,14 +61,10 @@ npm rebuild node-sass
 ```
 
 ### TODO:
-- Search movie by name
 - Setup travisCI for CI/CD
-- Add placeholder for movie details page
-- Add placeholder for home page
 - Add test framework with Enzyme-Jest
 - Add storybook
 - Add lint, prettier, node serve
-
 
 
 ## Contributing

@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Accordion, Icon } from 'semantic-ui-react';
 import { List } from "./";
 import './styles.css';
 
-export default class componentName extends Component {
+export default class Credits extends Component {
     state = { activeIndex: -1 }
 
     handleClick = (e, titleProps) => {

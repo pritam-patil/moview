@@ -27,8 +27,24 @@
   <meta name="article:author" content="Pritam Patil">
   <meta name="article:tag" content="Movie, Hollywood, Video, TV, TV show, watch movie, find movie">
   <title>Find a movie to watch</title>
+  <style>
+      .footer {
+         left: 0;
+         bottom: 0;
+         width: 100%;
+         background-color: #3f51b5;
+         color: white;
+         text-align: center;
+         opacity: 0;
+      }
+      </style>
 </head>
 <body>
+  <div class="wrapper">
     <div id="root" class={{overflowX: 'scroll'}}></div>
+    <div id="footer" footer role="footer" class="footer">
+      Powered by <a href="https://www.themoviedb.org/" target="_blank"> TMDb! </a>
+    </div>
+  </div>
 </body>
 </html>
