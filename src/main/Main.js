@@ -83,10 +83,6 @@ class Main extends React.Component {
         });
     }
 
-    componentDidMount() {
-        console.log(moviesLocation(this.state));
-    }
-
     onGenreChange = event => {
         this.setState({ genre: event.target.value });
     };

@@ -22,11 +22,6 @@ class Navigation extends React.Component {
 
         // listener for Enter/Space key
         document.addEventListener('keyup', this.focusSearch, false);
-
-        // fetch(this.props.url)
-        //     .then(response => response.json())
-        //     .then(data => this.props.setGenres(data.genres))
-        //     .catch(error => console.log(error));
     }
 
     componentWillUnmount() {
