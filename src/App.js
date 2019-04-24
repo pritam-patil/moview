@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from "./header/header";
 import Main from './main/Main';
-import Movie from './main/movies/Movie';
 import './App.css';
 
 const LazyDetails = React.lazy(() => import('./main/movies/Movie'));

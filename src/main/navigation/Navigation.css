@@ -1,8 +1,8 @@
 .navigation {
     flex-basis: 15%;
     min-width: 300px;
-    max-height: 420px;
-    padding: 10px;
+    max-height: 440px;
+    padding: 2rem;
 }
 
 .close-button {

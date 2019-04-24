@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { KEY_CODES, MOVIE_GENRES } from '../../constants';
 import Selection from "./Selection";
 import Slider from './Slider';

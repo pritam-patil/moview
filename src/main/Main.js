@@ -1,8 +1,8 @@
 import React from "react";
-import Modal from 'react-responsive-modal';
 import {
     Icon,
     Menu,
+    Modal,
     Segment,
     Loader
 } from 'semantic-ui-react';
@@ -41,7 +41,7 @@ const yearSelector = state => {
 class Main extends React.Component {
     state = {
         url: `https://api.themoviedb.org/3/genre/movie/list?api_key=651925d45022d1ae658063b443c99784&language=en-US`,
-        moviesUrl: `https://api.themoviedb.org/3/discover/movie?api_key=651925d45022d1ae658063b443c99784&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`,
+        moviesUrl: `https://api.themoviedb.org/3/discover/movie?api_key=651925d45022d1ae658063b443c99784&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&page=1`,
         genre: null,
         year: {
             label: "year",
@@ -184,8 +184,8 @@ class Main extends React.Component {
                   classNames={{modal: "modal-custom"}}
                   open={isOpen}
                   onClose={this.onCloseModal}
-                  showCloseIcon={false}
-                  little>
+                  size="mini"
+                >
                     {!isFetching &&
                         <Navigation
                             onChange={this.onChange}
