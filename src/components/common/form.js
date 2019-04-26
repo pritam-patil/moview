@@ -1,9 +1,12 @@
 import React from 'react';
-import { Form as SForm, Input, } from 'semantic-ui-react';
-import {FormResults} from './formResults';
-import './form.css';
+import {
+  Form as SForm,
+  Input,
+} from 'semantic-ui-react';
+import { FormResults } from './form-results';
+import './styles.css';
 
-export class Form extends React.Component {
+export default class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,7 +81,7 @@ export class Form extends React.Component {
 
     return (
       <SForm onSubmit={this.handleSubmit} id="form">
-        <SForm.Field className="searchField">
+        <SForm.Field className="searchField" disabled={!navigator.onLine}>
           <Input
             id="searchInput"
             className="searchIcon"
@@ -93,13 +96,6 @@ export class Form extends React.Component {
         </SForm.Field>
       </SForm>
     );
-
-    // return(
-    //   <form onSubmit={this.handleSubmit} id="form">
-    //       <img src={search} alt="search icon" className="searchIcon" />
-    //       <input onKeyUp={this.handleKeyUp} id="searchInput" className="searchBar" type="text" placeholder="Search a movie" required />
-    //       <FormResults results={this.state.results} />
-    //   </form>
-    // );
   }
 }
+

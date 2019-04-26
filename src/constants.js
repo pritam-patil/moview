@@ -37,4 +37,6 @@ export const KEY_CODES = {
   SPACEBAR: 32,
 };
 
+export const ITEMS_PER_ROW = 4;
+
 export const TAB_DEFAULT_NAME = 'Now playing';

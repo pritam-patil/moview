@@ -1,21 +1,20 @@
 import React from "react";
+import AirbrakeClient from 'airbrake-js';
 import {
     Icon,
     Menu,
     Modal,
     Segment,
-    Loader
 } from 'semantic-ui-react';
-import AirbrakeClient from 'airbrake-js';
-import { ErrorPage } from '../containers';
-import { DEFAULT_FILTERS, MOVIE_GENRES, TAB_DEFAULT_NAME } from '../constants';
+import { DEFAULT_FILTERS, MOVIE_GENRES, TAB_DEFAULT_NAME } from '../../constants';
 import Navigation from "./navigation/Navigation";
+import {
+    ErrorPage,
+    NoConnection,
+} from '../common';
+import MovieList from './movies/Movies';
+import "./styles.css"
 
-import { moviesLocation, hasDefaultPreferences } from '../components/selectors/movies-url';
-import Movies from "./movies/Movies";
-import "./Main.css"
-
-const DEFAULT_GENRE = 'Comedy';
 const {
  MIN_YEAR,
  MAX_YEAR,
@@ -24,19 +23,6 @@ const {
  MIN_TIME_MINS,
  MAX_TIME_MINS
 } = DEFAULT_FILTERS;
-
-const yearSelector = state => {
-    const { year: { value: { min: minYear, max: maxYear } } } = state;
-    if (
-      minYear.toString().substring(0, 1) === maxYear.toString().substring(0,1)
-    ) {
-        return `
-             '${minYear.toString()[2]}${minYear.toString()[3]} - '${maxYear.toString()[2]}${maxYear.toString()[3]}
-        `;
-    }
-
-    return `${minYear}-${maxYear}`;
-};
 
 class Main extends React.Component {
     state = {
@@ -106,24 +92,6 @@ class Main extends React.Component {
         this.setState({ isOpen: false });
     };
 
-    getDefaultURL = () => {
-      const { year, rating, runtime } = this.state;
-      const selectedGenre = MOVIE_GENRES.find( genre => genre.name === DEFAULT_GENRE);
-      const genreId = selectedGenre.id;
-
-      return `https://api.themoviedb.org/3/discover/movie?` +
-        `api_key=651925d45022d1ae658063b443c99784&` +
-        `language=en-US&sort_by=popularity.desc&` +
-        `with_genres=${genreId}&` +
-        `primary_release_date.gte=${year.value.min}-01-01&` +
-        `primary_release_date.lte=${year.value.max}-12-31&` +
-        `vote_average.gte=${rating.value.min}&` +
-        `vote_average.lte=${rating.value.max}&` +
-        `with_runtime.gte=${runtime.value.min}&` +
-        `with_runtime.lte=${runtime.value.max}&` +
-        `page=1&`;
-    };
-
     generateUrl = () => {
         const { year, rating, runtime } = this.state;
         const selectedGenre = MOVIE_GENRES.find( genre => genre.name === (this.state.genre || 'Action'));
@@ -141,8 +109,6 @@ class Main extends React.Component {
             `with_runtime.lte=${runtime.value.max}&` +
             `page=1&`;
 
-        // const moviesUrl = moviesLocation(this.state);
-
         this.setState({ moviesUrl });
     };
 
@@ -151,23 +117,19 @@ class Main extends React.Component {
         this.generateUrl();
     };
 
-    resetFilter = () => {
-        this.setState({moviesUrl: moviesLocation(this.state)});
-    };
-
     render() {
-        const { hasError, isFetching, isOpen } = this.state;
-        
-        if (hasError) {
-            return <ErrorPage />;
-        }
-        
-        const { genre, runtime, rating } = this.state;
-        const defaults = hasDefaultPreferences(this.state);
+        const { genre, hasError, isOpen } = this.state;
+        const { offline } = this.props;
         const tabName =  genre || TAB_DEFAULT_NAME;
+
+        if (hasError) {
+            return <ErrorPage />
+        }
+
         return (
             <div className="main">
                 <Icon
+                    disabled={offline}
                     circular
                     id="custom-search"
                     name="filter"
@@ -182,20 +144,19 @@ class Main extends React.Component {
                   onClose={this.onCloseModal}
                   size="mini"
                 >
-                    {!isFetching &&
-                        <Navigation
-                            onChange={this.onChange}
-                            onGenreChange={this.onGenreChange}
-                            onModalClose={this.onCloseModal}
-                            onSearchButtonClick={this.onSearchButtonClick}
-                            onClose={this.toggleModal}
-                            {...this.state}
-                        />
-                    }
+                    <Navigation
+                        onChange={this.onChange}
+                        onGenreChange={this.onGenreChange}
+                        onModalClose={this.onCloseModal}
+                        onSearchButtonClick={this.onSearchButtonClick}
+                        onClose={this.toggleModal}
+                        {...this.state}
+                    />
                 </Modal>
-                { isFetching && !this.state.open && <Loader active={isFetching} />}
                 {
-                    <div>
+                    offline
+                    ? <NoConnection />
+                    : <div onOnline={(e) => this.updateConnection(false)} onOffline={(e) => this.updateConnection(true)}>
                         <Menu tabular attached="top">
                             <Menu.Item
                                 active
@@ -204,7 +165,7 @@ class Main extends React.Component {
                             />
                         </Menu>
                         <Segment attached="bottom">
-                                <Movies genre={this.state.genre} url={this.state.moviesUrl} onClick={this.toggleModal}/>
+                            <MovieList genre={this.state.genre} url={this.state.moviesUrl} onClick={this.toggleModal}/>
                         </Segment>
                     </div>
                 }
