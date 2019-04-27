@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Label } from 'semantic-ui-react';
 import PropTypes from 'prop-types'
-import { ListItem } from "../components";
+import ListItem from './list-item';
 
 const LazyList = props => {
     const imageBase = 'https://image.tmdb.org/t/p/w300';

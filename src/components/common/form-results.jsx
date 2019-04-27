@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import './formResults.css';
+import './styles.css';
 
 export class FormResults extends React.Component {
   constructor(props) {
@@ -37,3 +37,4 @@ export class FormResults extends React.Component {
     );
   }
 }
+

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Accordion, Icon } from 'semantic-ui-react';
-import { List } from "./";
+import { List } from "../common";
 import './styles.css';
 
 export default class Credits extends Component {
@@ -10,14 +11,14 @@ export default class Credits extends Component {
       const { index } = titleProps
       const { activeIndex } = this.state
       const newIndex = activeIndex === index ? -1 : index
-  
+
       this.setState({ activeIndex: newIndex })
     }
 
     isActive(tab, current) {
       return tab === current;
     }
-  
+
     render() {
       const { activeIndex } = this.state;
       const activeCast = this.isActive(0, activeIndex);
@@ -32,7 +33,6 @@ export default class Credits extends Component {
           <Accordion.Content active={activeCast}>
             <List data={this.props.cast} />
           </Accordion.Content>
-  
           <Accordion.Title active={activeCrew} index={1} onClick={this.handleClick}>
             <Icon name={activeCrew && activeIcon || "angle right"} />
             Crew
@@ -45,3 +45,12 @@ export default class Credits extends Component {
     }
 }
 
+Credits.defaultProps = {
+  cast: [],
+  crew: []
+}
+
+Credits.PropTypes = {
+  cast: PropTypes.array,
+  crew: PropTypes.array,
+}

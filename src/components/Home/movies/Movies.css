@@ -4,6 +4,8 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     margin: 4px auto !important;
+    min-height: 400px;
+    padding-bottom: 6rem;
 }
 
 .movie-container > a {

@@ -1,33 +1,16 @@
 import React from "react";
-import { Card, Loader } from 'semantic-ui-react';
-import MovieListItem from "./MovieListItem";
-import { KEY_CODES } from '../../constants';
-import MovieListPlaceholder from '../../containers/home-list-placeholder';
-
+import PropTypes from 'prop-types';
+import MovieList from '../movies-grid';
+import { KEY_CODES } from '../../../constants';
 import "./Movies.css";
-
-const GridGroup = ({ isFetching, movies }) => {
-    if (isFetching) {
-        return <MovieListPlaceholder />;
-    }
-
-    return (
-        <Card.Group itemsPerRow={4} doubling>
-            { !!movies && movies.map(movie => (
-                            <MovieListItem key={movie.id} movie={movie} />
-                        ))
-            }
-        </Card.Group>
-    )
-
-}
 
 class Movies extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             movies: [],
-            isFetching: true
+            isFetching: navigator.onLine,
+            hasError: false,
         };
         this.storeMovies = this.storeMovies.bind(this);
     }
@@ -42,24 +25,47 @@ class Movies extends React.Component {
         }
     }
 
+    componentDidCatch(error, info) {
+        this.setState({
+            hasError: true,
+        });
+    }
+
+    getDerivedStateFromError(error) {
+        return ({
+            hasError: true,
+        });
+    }
+
     componentDidMount() {
         document.addEventListener("keyup", this.focusSearchButton, false);
         this.fetchMovies(this.props.url);
     }
 
-    componentWillReceiveProps(nextProps) {
+    /* TODO: update in next release */
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (this.props.url !== nextProps.url) {
-            this.setState({ isFetching: true });
-
-            this.fetchMovies(nextProps.url);
+            this.setState({ isFetching: true }, () => this.fetchMovies(nextProps.url));
         }
+    }
+
+    errorHandler = response => {
+        if (!response.ok) {
+            throw Error(response.statureText);
+        }
+
+        return response;
     }
 
     fetchMovies = (url) => {
         fetch(url)
+            .then(this.errorHandler)
             .then(response => response.json())
             .then(data => this.storeMovies(data))
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log('>> something went wrong : ', error);
+                this.setState({ hasError: true });
+            });
     };
 
     storeMovies = data => {
@@ -72,21 +78,12 @@ class Movies extends React.Component {
     };
 
     render() {
-        const { isFetching } = this.state;
         const orderedMovies = this.state.movies || [];
+
         return (
             <div className="movie-container" main role="main">
-                { false && <ul className="movies">
-                    {isFetching && <Loader active={isFetching} inline="centered" /> }
-                    {!isFetching &&
-                        !!orderedMovies && orderedMovies.map(movie => (
-                            <MovieListItem key={movie.id} movie={movie} />
-                        ))
-                    }
-                </ul>
-                }
-                <GridGroup
-                    isFetching={isFetching}
+                <MovieList
+                    key="movies-home"
                     movies={orderedMovies}
                 />
             </div>
@@ -94,9 +91,12 @@ class Movies extends React.Component {
     }
 
     componentWillUnmount() {
-        // select event listener added for custom search button
         document.removeEventListener('keyup', this.focusSearchButton, false);
     }
+}
+
+Movies.propTypes = {
+    url: PropTypes.url,
 }
 
 export default Movies;
