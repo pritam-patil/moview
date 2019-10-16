@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useEffect, useState } from "react";
 import AirbrakeClient from 'airbrake-js';
 import {
     Icon,
@@ -13,6 +13,8 @@ import {
     NoConnection,
 } from '../common';
 import MovieList from './movies/Movies';
+import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
+import { getMoviesList } from '../../services/tmdbApi';
 import "./styles.css"
 
 const {
@@ -23,6 +25,29 @@ const {
  MIN_TIME_MINS,
  MAX_TIME_MINS
 } = DEFAULT_FILTERS;
+
+const MainHook = memo((props) => {
+    const [movies, setMovies] = useState([]);
+    const [maxPages, setMaxPages] = useState(1);
+
+    const { count } = useInfiniteScroll(maxPages);
+    useEffect(() => {
+        // get new list of movies
+        getMoviesList(count).then(response => {
+            const {
+                results,
+                total_pages,
+            } = response;
+
+            setMovies(results);
+            setMaxPages(total_pages);
+        });
+    }, [count]);
+
+    return (
+        <div> { JSON.stringify(movies) } </div>
+    )
+});
 
 class Main extends React.Component {
     state = {
@@ -174,4 +199,4 @@ class Main extends React.Component {
     }
 }
 
-export default Main;
+export default MainHook;

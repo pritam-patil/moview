@@ -46,5 +46,22 @@
       Powered by <a href="https://www.themoviedb.org/" target="_blank"> TMDb! </a>
     </div>
   </div>
+  <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => {
+        console.log('====================================');
+        console.log("Service worker registered");
+        console.log('====================================');
+      })
+      .catch(err => {
+        console.log('====================================');
+        console.log(':-( (src/) Service worker failed to register');
+        console.log('====================================');
+      })
+  })
+}
+  </script>
 </body>
 </html>
