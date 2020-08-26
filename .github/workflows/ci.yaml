@@ -9,14 +9,12 @@ env:
 
 jobs:
   build_package_deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: patch node gyp on windows to support Visual Studio 2019
-        shell: powershell
+      - name: build scss
         run: |
-          npm install --global node-gyp@latest
-          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
+          npm rebuild node-sass
 
       - name: Checkout repo
         uses: actions/checkout@v2.3.1
