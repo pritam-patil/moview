@@ -50,6 +50,6 @@
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --hotOnly --config config/webpack.base.config.js --open --port=3000 --history-api-fallback --env.PLATFORM=local --env.VERSION=stag",
-    "prebuild": "rm -rf dist && webpack --mode production --config config/webpack.prod.config.js --env.PLATFORM=production --env.VERSION=stag --progress"
+    "prebuild": "rm -rf dist && webpack --mode production --config config/webpack.prod.config.js --env.PLATFORM=production --env.VERSION=stag --progress && mv dist/index.html dist/200.html"
   }
 }
