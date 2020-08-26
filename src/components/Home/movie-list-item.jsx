@@ -1,5 +1,4 @@
 import React from "react";
-import LineEllipsis from "react-lines-ellipsis";
 import { Card, Grid, Icon, Image, Label } from "semantic-ui-react";
 import { Rating as MovieRatings } from "../common";
 import "./styles.css";
@@ -22,39 +21,14 @@ export default (props) => {
     <Card href={linkTo} article="true" role="article">
       <Image centered size="large" src={imgUrl} alt={title} />
       <Card.Content>
-        <Card.Header>
-          <LineEllipsis
-            text={title}
-            maxLine={2}
-            ellipsis={`...`}
-            trimRight
-            basedOn={"letters"}
-          />
-        </Card.Header>
-        <Card.Description>
-          <LineEllipsis
-            text={overview}
-            maxLine={3}
-            ellipsis={` ...`}
-            trimRight={false}
-            basedOn={"words"}
-          />
-        </Card.Description>
+        <Card.Header content={title} />
+        <Card.Description>{`${overview.slice(0, 60)}...`}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Grid columns={3} divided>
-          <Grid.Row>
-            <Grid.Column width={6} className="average">
-              <MovieRatings title={title} vote_average={vote_average} />
-            </Grid.Column>
-            <Grid.Column width={4}>
-              <Label basic> {year} </Label>
-            </Grid.Column>
-            <Grid.Column width={2} className={"view-page"} floated="right">
-              <Icon name="angle right" primary role="navigation" />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        <div className="extra-details">
+          <MovieRatings title={title} vote_average={vote_average} />
+          <Label basic> {year} </Label>
+        </div>
       </Card.Content>
     </Card>
   );

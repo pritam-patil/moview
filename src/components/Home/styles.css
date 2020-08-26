@@ -1,224 +1,224 @@
 /* home styles */
 
-
 .main {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .main .filter {
-    color: blue;
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 3;
-    border: 2px solid #e27a3f;
-    padding: 8px;
+  color: blue;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 3;
+  border: 2px solid #e27a3f;
+  padding: 8px;
 }
 
 .modal-custom {
-    border-radius: 4px;
+  border-radius: 4px;
 }
 
 .search-label {
-    color: #3f51b5;
-    font-size: 15px;
+  color: #3f51b5;
+  font-size: 15px;
 }
 
 .now-showing {
-    font-weight: bolder;
-    border-bottom: 4px solid orangered;
-    max-width: 100px;
-    margin: 8px;
-    padding: 4px 0px 4px 0px;
+  font-weight: bolder;
+  border-bottom: 4px solid orangered;
+  max-width: 100px;
+  margin: 8px;
+  padding: 4px 0px 4px 0px;
 }
 
 .list-info {
-    font-size: 12px;
-    flex: 1;
-    display: flex;
-    height: 44px;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 8px 4px;
+  font-size: 12px;
+  flex: 1;
+  display: flex;
+  height: 44px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 8px 4px;
 }
 
 .genre-filter {
-    border: 1px solid rgb(127, 127, 255);
-    color: rgb(255, 255, 255);
-    border-radius: 8px;
-    font-weight: bold;
-    padding: 4px;
-    margin: 0px 8px;
-    background-color: rgb(127, 127, 255);
+  border: 1px solid rgb(127, 127, 255);
+  color: rgb(255, 255, 255);
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 4px;
+  margin: 0px 8px;
+  background-color: rgb(127, 127, 255);
 }
 
 .year-filter,
 .time-filter,
 .rating-filter {
-    border: 1px solid rgb(127, 127, 255);
-    background-color: rgb(127, 127, 255);
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    max-width: 96px;
-    margin: 0px 4px;
-    padding: 4px;
-    border-radius: 8px;
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  border: 1px solid rgb(127, 127, 255);
+  background-color: rgb(127, 127, 255);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  max-width: 96px;
+  margin: 0px 4px;
+  padding: 4px;
+  border-radius: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .year-filter > div,
 .time-filter > div,
 .rating-filter > div {
-    margin: 4px 0px;
+  margin: 4px 0px;
 }
-
 
 .year-filter > i,
 .time-filter > i,
 .rating-filter > i {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 
-@media only screen and (max-width: 800px) and (max-height: 500px)  {
-    .search-label {
-        position: absolute;
-        margin-left: 80%;
-        margin-top: -7%;
-    }
+@media only screen and (max-width: 800px) and (max-height: 500px) {
+  .search-label {
+    position: absolute;
+    margin-left: 80%;
+    margin-top: -7%;
+  }
 }
 
 @media only screen and (max-height: 800px) and (max-width: 500px) {
-    .search-label {
-        position: absolute;
-        margin-left: 80%;
-        margin-top: -11%;
-    }
+  .search-label {
+    position: absolute;
+    margin-left: 80%;
+    margin-top: -11%;
+  }
 }
 
 @media only screen and (min-width: 800px) {
-    .search-label {
-        cursor: pointer;
-        position: absolute;
-        margin-left: 85%;
-        margin-top: -3.2%;
-    }
+  .search-label {
+    cursor: pointer;
+    position: absolute;
+    margin-left: 85%;
+    margin-top: -3.2%;
+  }
 }
-
 
 /* movie item styles */
 
-
 .second-layer {
-    align-self: center;
-    flex:1;
-    width: 100%;
-    margin-top: -48px;
-    border: 1px solid rgba(226, 124, 64, 0.02);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    box-shadow: 8px 12px 64px 48px rgba(226,122,63, 0.5);
+  align-self: center;
+  flex: 1;
+  width: 100%;
+  margin-top: -48px;
+  border: 1px solid rgba(226, 124, 64, 0.02);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  box-shadow: 8px 12px 64px 48px rgba(226, 122, 63, 0.5);
 }
 
 .movie-poster {
-    display: flex;
-    flex-direction: column;
-    margin: 4px;
-    flex-basis: 46%;
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 4px;
+  flex-basis: 46%;
+  overflow: hidden;
 }
 
 .second-layer > .title {
-    font-size: 24px;
-    font-weight: bolder;
-    margin-top: 56px;
-    text-align: center;
-    color:  rgba(0, 0, 255, 0.55);
+  font-size: 24px;
+  font-weight: bolder;
+  margin-top: 56px;
+  text-align: center;
+  color: rgba(0, 0, 255, 0.55);
 }
 
 .movie-details {
-    margin: 56px 8px 16px;
-    flex: 1;
-    flex-basis: 70%;
-    align-self: center;
-    font-weight: 200;
+  margin: 56px 8px 16px;
+  flex: 1;
+  flex-basis: 70%;
+  align-self: center;
+  font-weight: 200;
 }
 
 .more-details {
-    display: flex;
-    justify-content: space-around;
-    overflow: hidden;
-    margin: 0px 8px 4px;
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+  margin: 0px 8px 4px;
 }
 .more-details i {
-    align-self: flex-end;
-    margin: 4px;
+  align-self: flex-end;
+  margin: 4px;
+}
+
+.extra-details {
+  display: inline-flex;
+  justify-content: space-between;
 }
 
 .overview {
-    flex: 1;
-    font-size: 12px;
-    font-weight: normal;
-    align-self: center;
-    height: 40px;
-    overflow: inherit;
-    text-overflow: ellipsis;
-    padding: 4px 8px;
-    line-height: 1.2;
+  flex: 1;
+  font-size: 12px;
+  font-weight: normal;
+  align-self: center;
+  height: 40px;
+  overflow: inherit;
+  text-overflow: ellipsis;
+  padding: 4px 8px;
+  line-height: 1.2;
 }
 
 .average {
-    color: rgba(226,122,63, 0.9);
-    display: flex !important;
-    flex-basis: 40%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    font-size: 14px;
-    justify-content: center;
-    padding: 4px !important;
+  color: rgba(226, 122, 63, 0.9);
+  display: flex !important;
+  flex-basis: 40%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 14px;
+  justify-content: center;
+  padding: 4px !important;
 }
 
 .year {
-    background-color: rgba(226, 124, 64, 0.6);
-    border: 1px solid rgba(226, 124, 64, 0.7);;
-    border-radius: 4px;
-    font-size: 12px;
-    color: #fdfcfb;
-    font-weight: bold;
-    padding: 4px;
-
+  background-color: rgba(226, 124, 64, 0.6);
+  border: 1px solid rgba(226, 124, 64, 0.7);
+  border-radius: 4px;
+  font-size: 12px;
+  color: #fdfcfb;
+  font-weight: bold;
+  padding: 4px;
 }
 
 .movie-details {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
 
 .movie-details span {
-    color: #555;
-    font-size: 0.8rem;
-    font-weight: bold;
+  color: #555;
+  font-size: 0.8rem;
+  font-weight: bold;
 }
 
 .thumbnail {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
 }
 
 .default-container {
-    color: blue !important;
+  color: blue !important;
 }
 
 .view-page {
-    align-self: baseline;
-    color: blue !important;
-    padding-right: 24px !important;
+  align-self: baseline;
+  color: blue !important;
+  padding-right: 24px !important;
 }

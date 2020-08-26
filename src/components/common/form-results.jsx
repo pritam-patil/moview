@@ -1,6 +1,7 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import './styles.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import dayjs from "dayjs";
+import "./styles.css";
 
 export class FormResults extends React.Component {
   constructor(props) {
@@ -9,32 +10,45 @@ export class FormResults extends React.Component {
   }
 
   handleClick() {
-    document.getElementById('results').className = 'noDisplay';
-    document.getElementById('searchInput').value = '';
+    document.getElementById("results").className = "noDisplay";
+    document.getElementById("searchInput").value = "";
+  }
+
+  getFormattedDate(date) {
+    return dayjs(date).format("MMM 'YY");
   }
 
   render() {
-    const link = 'https://image.tmdb.org/t/p/w300';
+    const link = "https://image.tmdb.org/t/p/w300";
     const { results } = this.props;
 
     // basic UI
-    return(
+    return (
       <ul id="results" onClick={this.handleClick}>
         {results.map((element, index) => {
-          return(
+          return (
             <li key={index} onClick={this.handleClick}>
-              <Link to={`/movies/${element.id}`} >
-                <img src={element.poster_path === null ? 'http://via.placeholder.com/300x450' : `${link}${element.poster_path}`} alt={`${element.title} poster`} className="resultPoster" />
+              <Link to={`/movies/${element.id}`}>
+                <img
+                  src={
+                    element.poster_path === null
+                      ? "http://via.placeholder.com/300x450"
+                      : `${link}${element.poster_path}`
+                  }
+                  alt={`${element.title} poster`}
+                  className="resultPoster"
+                />
                 <div>
-                  <p>{element.title}</p>
-                  <p>{element.release_date}</p>
+                  <p className="results-movie-title">{element.title}</p>
+                  <p className="results-movie-release">
+                    Released: {this.getFormattedDate(element.release_date)}
+                  </p>
                 </div>
               </Link>
             </li>
-          )
+          );
         })}
       </ul>
     );
   }
 }
-

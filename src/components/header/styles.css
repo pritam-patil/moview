@@ -5,6 +5,7 @@
 }
 .header .content {
   margin-left: 10px;
+  color: #e27a3f;
 }
 
 .item:before {
@@ -59,4 +60,5 @@
 
 .app-sub {
   padding: 4px 0px 2px !important;
+  color: #eeaf8a !important;
 }
