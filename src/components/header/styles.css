@@ -1,59 +1,64 @@
 .header {
-    border-radius: 8px;
-    margin-top: -0.5rem !important;
-    z-index: 3;
+  border-radius: 8px;
+  margin-top: -0.5rem !important;
+  z-index: 3;
+}
+.header .content {
+  margin-left: 10px;
+  color: #e27a3f;
 }
 
 .item:before {
-    width: 0px !important;
+  width: 0px !important;
 }
 
 .app-details {
-    padding: 2rem !important;
+  padding: 2rem !important;
 }
 
 .grid-row {
-    align-items: center !important;
+  align-items: center !important;
 }
 
 .app-title {
-    margin-left: 8px !important;
+  margin-left: 8px !important;
 }
 
 .reset-space {
-    padding-top: 0px !important;
+  padding-top: 0px !important;
 }
 
 .header > i {
-    align-self: center;
+  align-self: center;
 }
 
 @media only screen and (max-height: 800px) and (max-width: 500px) {
- .header > img {
-          flex:0 0 auto;
+  .header > img {
+    flex: 0 0 auto;
   }
 }
 .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 8px;
 }
 
 .content > h1 {
-    line-height: 0px;
-    font-size: 2rem;
-    color: #e27a3f;
-    padding-top: 20px;
-    margin: 0px 4px;
+  line-height: 0px;
+  font-size: 2rem;
+  color: #e27a3f;
+  padding-top: 20px;
+  margin: 0px 4px;
 }
 
 .content > h4 {
-    font-size: 1rem;
-    color: rgba(0, 0, 255, 0.5);
-    margin: 16px 0px 4px;
+  font-size: 1rem;
+  color: rgba(0, 0, 255, 0.5);
+  margin: 16px 0px 4px;
 }
 
 .app-sub {
-    padding: 4px 0px 2px !important;
+  padding: 4px 0px 2px !important;
+  color: #eeaf8a !important;
 }
