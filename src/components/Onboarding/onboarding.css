@@ -1,0 +1,15 @@
+section {
+    padding: 12px;
+    display: flex;
+    gap: 8px;
+    flex-flow: row wrap;
+}
+
+.button-container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    gap: 8px;
+}

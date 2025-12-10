@@ -1,6 +1,6 @@
 import React from "react";
 import AirbrakeClient from "airbrake-js";
-import { Icon, Menu, Modal, Segment } from "semantic-ui-react";
+import { Icon, Menu, Modal, Segment, Tab, TabPane } from "semantic-ui-react";
 import {
   DEFAULT_FILTERS,
   MOVIE_GENRES,
@@ -9,6 +9,7 @@ import {
 import Navigation from "./navigation/Navigation";
 import { ErrorPage, NoConnection } from "../common";
 import MovieList from "./movies/Movies";
+import LocalStorageManager from "../../store/localStorage";
 import "./styles.css";
 
 const {
@@ -22,6 +23,7 @@ const {
 
 class Main extends React.Component {
   state = {
+    tabs: [],
     url: `https://api.themoviedb.org/3/genre/movie/list?api_key=651925d45022d1ae658063b443c99784&language=en-US`,
     moviesUrl: `https://api.themoviedb.org/3/discover/movie?api_key=651925d45022d1ae658063b443c99784&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&page=1`,
     genre: null,
@@ -54,6 +56,19 @@ class Main extends React.Component {
     projectId: 219983,
     projectKey: "7881b9af5510c9794ba34bb4d525eecd",
   });
+
+  componentDidMount() {
+    const preferences = new LocalStorageManager("preferences");
+    const allGenres = new LocalStorageManager("allGenres");
+    const selectedTabs =
+      (preferences.get() &&
+        preferences.get().map((tab) => {
+          return allGenres.get().find((genre) => genre.id === tab);
+        })) ||
+      [];
+
+    this.setState({ tabs: selectedTabs });
+  }
 
   componentDidCatch(error, info) {
     this.setState({ hasError: true });
@@ -116,13 +131,33 @@ class Main extends React.Component {
     this.generateUrl();
   };
 
+  getPanes() {
+    const { tabs } = this.state;
+    return tabs.map((tab) => {
+      return {
+        menuItem: tab.id,
+        render: () => <TabPane>{tab.name}</TabPane>,
+      };
+    });
+  }
+
   render() {
-    const { genre, hasError, isOpen } = this.state;
+    const { genre, hasError, isOpen, tabs } = this.state;
     const { offline } = this.props;
     const tabName = genre || TAB_DEFAULT_NAME;
 
     if (hasError) {
       return <ErrorPage />;
+    }
+
+    if (tabs.length) {
+      const panes = tabs.map((tab) => {
+        return {
+          menuItem: tab.name,
+          render: () => <TabPane>{tab.name}</TabPane>,
+        };
+      });
+      return <Tab panes={panes} />;
     }
 
     return (

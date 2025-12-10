@@ -1,22 +1,13 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ErrorPage, NoConnection } from "../common";
-import { isOffline } from "../selectors/is-offline";
 import MovieCard from "./card";
 import "./styles.css";
 
-class Movie extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      movie: {},
-      hasError: false,
-    };
-  }
+const Movie = (props) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [movie, setMovie] = useState({});
 
-  fetchMovie = (movieId) => {
+  const fetchMovie = (movieId) => {
     const movieUrl =
       `https://api.themoviedb.org/3/movie/${movieId}?` +
       `api_key=651925d45022d1ae658063b443c99784` +
@@ -25,95 +16,57 @@ class Movie extends Component {
 
     fetch(movieUrl)
       .then((response) => response.json())
-      .then((data) => this.setState({ movie: data, isLoading: false }))
+      .then((data) => {
+        setMovie(data);
+        setIsLoading(false);
+      })
       .catch((err) => console.log("error:", err));
   };
 
-  componentDidMount() {
-    const { movieId } = this.props.match.params;
-    this.fetchMovie(movieId);
+  useEffect(() => {
+    const { movieId } = props.match.params;
+    fetchMovie(movieId);
+  }, [props.match.params]);
+
+  if (isLoading) {
+    return null;
   }
 
-  componentDidUpdate(prevProps) {
-    const { movieId } = this.props.match.params;
-    const { movieId: prevId } = prevProps.match.params;
+  const {
+    poster_path,
+    backdrop_path,
+    credits,
+    genres,
+    overview,
+    release_date,
+    runtime,
+    title,
+    vote_average,
+  } = movie;
 
-    if (!_.isEqual(movieId, prevId)) {
-      this.fetchMovie(movieId);
-    }
-  }
+  const releaseYear = release_date ? release_date.substring(0, 4) : null;
+  const imgUrl = `http://image.tmdb.org/t/p/w1280/${backdrop_path}`;
+  const posterPath = `http://image.tmdb.org/t/p/w1280/${poster_path}`;
 
-  getDerivedStateFromError(error) {
-    return {
-      hasError: true,
-      isLoading: false,
-    };
-  }
-
-  componentDidCatch(error, info) {
-    this.setState({ hasError: true, isLoading: false });
-    console.log(`>> Something went wrong ${JSON.stringify(info)}`);
-  }
-
-  render() {
-    const { hasError, isLoading, movie } = this.state;
-    if (isLoading) {
-      return null;
-    }
-
-    const {
-      poster_path,
-      backdrop_path,
-      credits,
-      genres,
-      overview,
-      release_date,
-      runtime,
-      title,
-      vote_average,
-    } = movie;
-
-    const releaseYear = release_date ? release_date.substring(0, 4) : null;
-    const imgUrl = `http://image.tmdb.org/t/p/w1280/${backdrop_path}`;
-    const posterPath = `http://image.tmdb.org/t/p/w1280/${poster_path}`;
-
-    if (hasError) {
-      return <ErrorPage />;
-    }
-
-    const { offline } = this.props;
-    if (offline) {
-      return <NoConnection />;
-    }
-
-    return (
-      <div className="movie-page">
-        <MovieCard
-          title={title}
-          year={releaseYear}
-          genres={genres}
-          people={credits}
-          time={runtime}
-          details={overview}
-          imgUrl={imgUrl}
-          rating={vote_average}
-          posterPath={posterPath}
-        />
-        ;
-        <Link to={`/`} className="go-back">
-          <i class="fas fa-arrow-circle-left fa-2x"></i>
-        </Link>
-      </div>
-    );
-  }
-}
-
-Movie.defaultProps = {
-  offline: isOffline(),
-};
-
-Movie.propTypes = {
-  offline: PropTypes.bool,
+  return (
+    <div className="movie-page">
+      <MovieCard
+        title={title}
+        year={releaseYear}
+        genres={genres}
+        people={credits}
+        time={runtime}
+        details={overview}
+        imgUrl={imgUrl}
+        rating={vote_average}
+        posterPath={posterPath}
+      />
+      ;
+      <Link to={`/`} className="go-back">
+        <i class="fas fa-arrow-circle-left fa-2x"></i>
+      </Link>
+    </div>
+  );
 };
 
 export default Movie;
