@@ -2,6 +2,7 @@ import React from "react";
 import AirbrakeClient from "airbrake-js";
 import { Icon, Menu, Modal, Segment, Tab, TabPane } from "semantic-ui-react";
 import {
+  API_KEY,
   DEFAULT_FILTERS,
   MOVIE_GENRES,
   TAB_DEFAULT_NAME,
@@ -131,16 +132,6 @@ class Main extends React.Component {
     this.generateUrl();
   };
 
-  getPanes() {
-    const { tabs } = this.state;
-    return tabs.map((tab) => {
-      return {
-        menuItem: tab.id,
-        render: () => <TabPane>{tab.name}</TabPane>,
-      };
-    });
-  }
-
   render() {
     const { genre, hasError, isOpen, tabs } = this.state;
     const { offline } = this.props;
@@ -154,7 +145,14 @@ class Main extends React.Component {
       const panes = tabs.map((tab) => {
         return {
           menuItem: tab.name,
-          render: () => <TabPane>{tab.name}</TabPane>,
+          render: () => {
+            const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${tab.id}&api_key=${API_KEY}`;
+            return (
+              <TabPane>
+                <MovieList url={url} />
+              </TabPane>
+            );
+          },
         };
       });
       return <Tab panes={panes} />;
