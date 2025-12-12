@@ -1,102 +1,81 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import MovieList from '../movies-grid';
-import { KEY_CODES } from '../../../constants';
+import PropTypes from "prop-types";
+import MovieList from "../movies-grid";
+import { KEY_CODES } from "../../../constants";
 import "./Movies.css";
 
-class Movies extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            movies: [],
-            isFetching: navigator.onLine,
-            hasError: false,
-        };
-        this.storeMovies = this.storeMovies.bind(this);
+const Movies = (props) => {
+  const [movies, setMovies] = React.useState([]);
+  const [isFetching, setIsFetching] = React.useState(navigator.onLine);
+
+  const focusSearchButton = (e) => {
+    const customSearch = document.getElementById("custom-search");
+    // enter key's code
+    const { ENTER } = KEY_CODES;
+    if ([ENTER].includes(e.keyCode)) {
+      e.preventDefault();
+      customSearch.click();
     }
+  };
 
-    focusSearchButton = (e) => {
-        const customSearch = document.getElementById("custom-search");
-        // enter key's code
-        const { ENTER } = KEY_CODES;
-        if ([ENTER].includes(e.keyCode)) {
-            e.preventDefault();
-            customSearch.click();
-        }
-    }
+  React.useEffect(() => {
+    document.addEventListener("keyup", focusSearchButton, false);
+    fetchMovies(props.url);
 
-    componentDidCatch(error, info) {
-        this.setState({
-            hasError: true,
-        });
-    }
-
-    getDerivedStateFromError(error) {
-        return ({
-            hasError: true,
-        });
-    }
-
-    componentDidMount() {
-        document.addEventListener("keyup", this.focusSearchButton, false);
-        this.fetchMovies(this.props.url);
-    }
-
-    /* TODO: update in next release */
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (this.props.url !== nextProps.url) {
-            this.setState({ isFetching: true }, () => this.fetchMovies(nextProps.url));
-        }
-    }
-
-    errorHandler = response => {
-        if (!response.ok) {
-            throw Error(response.statureText);
-        }
-
-        return response;
-    }
-
-    fetchMovies = (url) => {
-        fetch(url)
-            .then(this.errorHandler)
-            .then(response => response.json())
-            .then(data => this.storeMovies(data))
-            .catch(error => {
-                console.log('>> something went wrong : ', error);
-                this.setState({ hasError: true });
-            });
+    return () => {
+      document.removeEventListener("keyup", focusSearchButton, false);
     };
+  }, [props.url]);
 
-    storeMovies = data => {
-        const movies = data.results.map( result => {
-            const  { overview, vote_count, id, genre_ids, poster_path, title, vote_average, release_date } = result;
-            return { overview, vote_count, id, genre_ids, poster_path, title, vote_average, release_date };
-        });
+  const fetchMovies = (url) => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => storeMovies(data))
+      .catch((error) => {
+        console.log(">> something went wrong : ", error);
+        setIsFetching(false);
+      });
+  };
 
-        this.setState({ movies , isFetching: false});
-    };
+  const storeMovies = (data) => {
+    const movies = data.results.map((result) => {
+      const {
+        overview,
+        vote_count,
+        id,
+        genre_ids,
+        poster_path,
+        title,
+        vote_average,
+        release_date,
+      } = result;
+      return {
+        overview,
+        vote_count,
+        id,
+        genre_ids,
+        poster_path,
+        title,
+        vote_average,
+        release_date,
+      };
+    });
 
-    render() {
-        const orderedMovies = this.state.movies || [];
+    setMovies(movies);
+    setIsFetching(false);
+  };
 
-        return (
-            <div className="movie-container" main role="main">
-                <MovieList
-                    key="movies-home"
-                    movies={orderedMovies}
-                />
-            </div>
-        )
-    }
+  const orderedMovies = movies || [];
 
-    componentWillUnmount() {
-        document.removeEventListener('keyup', this.focusSearchButton, false);
-    }
-}
+  return (
+    <div className="movie-container" main role="main">
+      <MovieList key="movies-home" movies={orderedMovies} />
+    </div>
+  );
+};
 
 Movies.propTypes = {
-    url: PropTypes.url,
-}
+  url: PropTypes.url,
+};
 
 export default Movies;
