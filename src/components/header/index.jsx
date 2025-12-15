@@ -1,33 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Grid, Header } from "semantic-ui-react";
 import { SearchMovie } from "../common";
+import { ROUTES } from "../../constants";
 import "./styles.css";
 
-const TopbarGrid = () => (
-  <Grid columns={2} doubling divided className="header">
-    <Grid.Row>
-      <Grid.Column className="app-details">
-        <Grid columns={2}>
-          <Grid.Row className="grid-row">
-            <Grid.Column width={2}>
-              <i class="fas fa-film fa-3x"></i>
-            </Grid.Column>
-            <Grid.Column width={10} className="app-title">
-              <Header as="h2" role="title">
-                <Header.Content>
-                  Moview
-                  <Header.Subheader className="app-sub">
-                    Find the right movie!
-                  </Header.Subheader>
-                </Header.Content>
-              </Header>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Grid.Column>
-    </Grid.Row>
-  </Grid>
-);
+const TopbarGrid = (props) => {
+  return (
+    <header>
+      <div className="left">
+        <NavLink to={ROUTES.HOME}>
+          <i class="fas fa-film fa-4x"></i>
+        </NavLink>
+        <div>
+          <h2>Moview</h2>
+          <p>Find the right movie!</p>
+        </div>
+      </div>
+      <div className="right">
+        <NavLink to={ROUTES.SETTINGS}>
+          <i class="fas fa-cog fa-2x"></i>
+        </NavLink>
+      </div>
+    </header>
+  );
+};
 
 export default TopbarGrid;

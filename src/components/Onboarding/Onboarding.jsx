@@ -1,9 +1,12 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { API_KEY } from "../../constants";
 import { Button, Header } from "semantic-ui-react";
+import { ROUTES } from "../../constants";
 import LocalStorageManager from "../../store/localStorage";
 import "./onboarding.css";
+
+const { HOME } = ROUTES;
 
 const Onboarding = () => {
   const preferences = new LocalStorageManager("preferences");
@@ -13,7 +16,7 @@ const Onboarding = () => {
     preferences.get() || []
   );
   const allGenres = new LocalStorageManager("allGenres");
-
+  const navigate = useNavigate();
   const hasGenre = (genreId) => {
     if (selectedGenres.length !== 0) {
       return selectedGenres.includes(genreId);
@@ -52,11 +55,11 @@ const Onboarding = () => {
 
   const onSaveGenres = () => {
     preferences.set(selectedGenres);
-    onSkip();
+    navigate(HOME);
   };
 
   const onSkip = () => {
-    window.location.href = "/movies";
+    navigate(HOME);
   };
 
   return (

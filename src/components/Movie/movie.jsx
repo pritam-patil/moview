@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { ROUTES } from "../../constants";
 import MovieCard from "./card";
 import "./styles.css";
 
 const Movie = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [movie, setMovie] = useState({});
+  const params = useParams();
 
   const fetchMovie = (movieId) => {
     const movieUrl =
@@ -24,9 +26,9 @@ const Movie = (props) => {
   };
 
   useEffect(() => {
-    const { movieId } = props.match.params;
-    fetchMovie(movieId);
-  }, [props.match.params]);
+    const { id } = params;
+    fetchMovie(id);
+  }, [params]);
 
   if (isLoading) {
     return null;
@@ -62,8 +64,8 @@ const Movie = (props) => {
         posterPath={posterPath}
       />
       ;
-      <Link to={`/`} className="go-back">
-        <i class="fas fa-arrow-circle-left fa-2x"></i>
+      <Link to={ROUTES.HOME} className="go-back">
+        <i class="fas fa-arrow-circle-left fa-3x"></i>
       </Link>
     </div>
   );

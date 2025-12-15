@@ -1,35 +1,26 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Home from "./components/Home";
 import Header from "./components/header";
 import MovieDetails from "./components/Movie";
 import Onboarding from "./components/Onboarding/Onboarding";
+import { ROUTES } from "./constants";
 import "./App.css";
+
+const { HOME, DETAILS, SETTINGS } = ROUTES;
 
 const App = (props) => {
   return (
-    <>
-      <Header key="moview-header" />
-      <BrowserRouter>
-        <div className="App">
-          <Switch>
-            <Route
-              exact
-              path="/movies"
-              render={(props) => <Home {...props} />}
-            />
-            <Route
-              path="/movies/:movieId"
-              render={(props) => <MovieDetails {...props} />}
-            />
-            <Route
-              path="/onboard"
-              render={(props) => <Onboarding {...props} />}
-            />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Header />
+      <main>
+        <Routes>
+          <Route exact path={HOME} element={<Home />} />
+          <Route path={DETAILS} element={<MovieDetails />} />
+          <Route path={SETTINGS} element={<Onboarding />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 };
 

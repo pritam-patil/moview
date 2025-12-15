@@ -1,64 +1,45 @@
-.header {
-  border-radius: 8px;
-  margin-top: -0.5rem !important;
-  z-index: 3;
-}
-.header .content {
-  margin-left: 10px;
-  color: #e27a3f;
-}
-
-.item:before {
-  width: 0px !important;
-}
-
-.app-details {
-  padding: 2rem !important;
-}
-
-.grid-row {
-  align-items: center !important;
-}
-
-.app-title {
-  margin-left: 8px !important;
-}
-
-.reset-space {
-  padding-top: 0px !important;
-}
-
-.header > i {
-  align-self: center;
-}
-
-@media only screen and (max-height: 800px) and (max-width: 500px) {
-  .header > img {
-    flex: 0 0 auto;
-  }
-}
-.content {
+header {
+  margin: 8px 12px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0px 8px;
+  align-items: center;
+  flex-flow: row nowrap;
 }
 
-.content > h1 {
-  line-height: 0px;
-  font-size: 2rem;
-  color: #e27a3f;
-  padding-top: 20px;
-  margin: 0px 4px;
+header .left {
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+  gap: 12px;
 }
 
-.content > h4 {
-  font-size: 1rem;
-  color: rgba(0, 0, 255, 0.5);
-  margin: 16px 0px 4px;
+.left a {
+  background: linear-gradient(
+    to bottom right,
+    var(--primary-color),
+    var(--primary-color) 50%,
+    var(--secondary-color) 50%,
+    var(--secondary-color)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.app-sub {
-  padding: 4px 0px 2px !important;
-  color: #eeaf8a !important;
+h2 {
+  margin-bottom: 2px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.left p {
+  background: linear-gradient(to left, var(--secondary-color), var(--primary-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+header .right {
+  margin-left: auto;
 }
