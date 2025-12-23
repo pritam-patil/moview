@@ -33,24 +33,19 @@ const MovieCard = (props) => {
           <h1>
             {movieName} ({releaseYear})
           </h1>
-          <p>Description goes here</p>
+          <Card.Description className="phm-description">
+            {overview}
+          </Card.Description>
         </div>
       </div>
-
       <Card.Content>
-        <Card.Header className="phm-title-tile"></Card.Header>
-        <Card.Header extra> </Card.Header>
-        <Card.Meta>
-          <MovieDetails
-            genres={genres}
-            time={runtime}
-            title={movieName}
-            rating={rating}
-          />
-        </Card.Meta>
-        <Card.Description className="phm-description">
-          {overview}
-        </Card.Description>
+        <MovieDetails
+          genres={genres}
+          time={runtime}
+          title={movieName}
+          rating={rating}
+        />
+
         <Card.Content extra>
           <People cast={people.cast} crew={people.crew} />
         </Card.Content>

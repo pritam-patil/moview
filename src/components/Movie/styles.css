@@ -23,7 +23,12 @@
 }
 
 .phm-description {
-    margin: 0px 8px;
+    display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 60%;
+  /* TODO: show more button */
 }
 
 .phm-time {
@@ -91,8 +96,9 @@
     z-index: 3;
 }
 
-.movie-details {
+.movie-card > .movie-details {
     flex-wrap: nowrap !important;
+    padding-top: 0;
 }
 
 .movie-genres {
