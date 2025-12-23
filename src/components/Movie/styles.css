@@ -52,6 +52,35 @@
     box-shadow: 0px 8px 8px rgba(226,122,63, 0.5);
 }
 
+.gradient-image {
+  position: relative;
+  display: inline-block;
+}
+
+.gradient-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.6) 20%,
+    rgba(0, 0, 0, 0.3) 40%,
+    rgba(0, 0, 0, 0) 55%
+  );
+  pointer-events: none;
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 3rem;
+  transform: translateY(-50%);
+  color: white;
+  z-index: 1;
+  max-width: 40%;
+}
+
 .movie-page .go-back {
     align-self: center;
     color: #e27a3f;

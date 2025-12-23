@@ -27,11 +27,18 @@ const MovieCard = (props) => {
 
   return (
     <Card active="true" fluid article="true" role="article">
-      <Image src={props.imgUrl} centered className="detail-image" />
+      <div className="gradient-image">
+        <Image src={props.imgUrl} fluid />
+        <div className="hero-text">
+          <h1>
+            {movieName} ({releaseYear})
+          </h1>
+          <p>Description goes here</p>
+        </div>
+      </div>
+
       <Card.Content>
-        <Card.Header className="phm-title-tile">
-          {movieName} ({releaseYear})
-        </Card.Header>
+        <Card.Header className="phm-title-tile"></Card.Header>
         <Card.Header extra> </Card.Header>
         <Card.Meta>
           <MovieDetails
