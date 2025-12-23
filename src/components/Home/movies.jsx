@@ -25,6 +25,7 @@ const {
 class Main extends React.Component {
   state = {
     tabs: [],
+    selectedTab: 0,
     url: `https://api.themoviedb.org/3/genre/movie/list?api_key=651925d45022d1ae658063b443c99784&language=en-US`,
     moviesUrl: `https://api.themoviedb.org/3/discover/movie?api_key=651925d45022d1ae658063b443c99784&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&page=1`,
     genre: null,
@@ -61,6 +62,8 @@ class Main extends React.Component {
   componentDidMount() {
     const preferences = new LocalStorageManager("preferences");
     const allGenres = new LocalStorageManager("allGenres");
+    const selectedTabsStore = new LocalStorageManager("selectedTabs");
+
     const selectedTabs =
       (preferences.get() &&
         preferences.get().map((tab) => {
@@ -69,6 +72,14 @@ class Main extends React.Component {
       [];
 
     this.setState({ tabs: selectedTabs });
+
+    if (!selectedTabsStore) {
+      this.onTabChange(null, { activeIndex: 0 });
+    } else {
+      // restore last active tab
+      const data = selectedTabsStore && selectedTabsStore.get();
+      this.setState({ selectedTab: (data && data.selectedTab) || 0 });
+    }
   }
 
   componentDidCatch(error, info) {
@@ -83,6 +94,17 @@ class Main extends React.Component {
 
   onGenreChange = (event) => {
     this.setState({ genre: event.target.value });
+  };
+
+  onTabChange = (e, { activeIndex }) => {
+    const selectedTabsStore = new LocalStorageManager("selectedTabs");
+
+    this.setState({ selectedTab: activeIndex }, () => {
+      selectedTabsStore.set({
+        selectedTab: activeIndex,
+        lastUpdated: new Date().toISOString(),
+      });
+    });
   };
 
   onChange = (data) => {
@@ -133,7 +155,7 @@ class Main extends React.Component {
   };
 
   render() {
-    const { genre, hasError, isOpen, tabs } = this.state;
+    const { genre, hasError, isOpen, tabs, selectedTab } = this.state;
     const { offline } = this.props;
     const tabName = genre || TAB_DEFAULT_NAME;
 
@@ -155,7 +177,13 @@ class Main extends React.Component {
           },
         };
       });
-      return <Tab panes={panes} />;
+      return (
+        <Tab
+          panes={panes}
+          activeIndex={selectedTab}
+          onTabChange={this.onTabChange}
+        />
+      );
     }
 
     return (

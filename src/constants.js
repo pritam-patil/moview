@@ -42,3 +42,9 @@ export const KEY_CODES = {
 export const ITEMS_PER_ROW = 4;
 
 export const TAB_DEFAULT_NAME = "Now playing";
+
+export const ROUTES = {
+  HOME: "/",
+  SETTINGS: "/settings",
+  DETAILS: "/movie/:id",
+};

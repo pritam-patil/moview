@@ -1,8 +1,8 @@
-section {
+section.genres {
     padding: 12px;
     display: flex;
-    gap: 8px;
     flex-flow: row wrap;
+    gap: 8px;
 }
 
 .button-container {
@@ -13,3 +13,10 @@ section {
     flex: 1;
     gap: 8px;
 }
+
+.onboarding-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 16px;
+}
+/* TODO: container based justify-content */

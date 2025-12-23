@@ -1,3 +1,7 @@
+.movie-container {
+    container: container / inline-size;
+}
+
 .phm-details {
     display: flex;
     margin: 4px;
@@ -23,7 +27,12 @@
 }
 
 .phm-description {
-    margin: 0px 8px;
+    display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 60%;
+  /* TODO: show more button */
 }
 
 .phm-time {
@@ -52,6 +61,36 @@
     box-shadow: 0px 8px 8px rgba(226,122,63, 0.5);
 }
 
+.gradient-image {
+  position: relative;
+  display: inline-block;
+  container: poster / inline-size;
+}
+
+.gradient-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.6) 20%,
+    rgba(0, 0, 0, 0.3) 40%,
+    rgba(0, 0, 0, 0) 55%
+  );
+  pointer-events: none;
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 3rem;
+  transform: translateY(-50%);
+  color: white;
+  z-index: 1;
+  max-width: 40%;
+}
+
 .movie-page .go-back {
     align-self: center;
     color: #e27a3f;
@@ -62,8 +101,9 @@
     z-index: 3;
 }
 
-.movie-details {
+.movie-card > .movie-details {
     flex-wrap: nowrap !important;
+    padding-top: 0;
 }
 
 .movie-genres {
@@ -75,7 +115,7 @@
     align-items: baseline;
     display: flex;
     justify-content: space-between !important;
-    margin-top: 0.5rem !important;
+    margin-top: 1rem !important;
 }
 
 /*******************************
@@ -101,4 +141,24 @@ People component styles
 
 .error-image {
     width: 50% !important;
+}
+
+
+@container poster (max-width: 600px) {
+    .hero-text {
+        top: 99%;
+        max-width: 90%;
+    }
+    
+    .hero-text .phm-description {
+        color: black;
+        -webkit-line-clamp: 2;
+        max-width: 90%;
+    }
+}
+
+@container .movie-container (max-width: 600px) {
+    .content {
+        padding-top: 20px;
+    }
 }
