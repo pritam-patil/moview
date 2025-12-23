@@ -26,7 +26,13 @@ const MovieCard = (props) => {
   }, []);
 
   return (
-    <Card active="true" fluid article="true" role="article">
+    <Card
+      active="true"
+      fluid
+      article="true"
+      role="article"
+      className="movie-container"
+    >
       <div className="gradient-image">
         <Image src={props.imgUrl} fluid />
         <div className="hero-text">

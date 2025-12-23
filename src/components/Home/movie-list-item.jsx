@@ -17,7 +17,6 @@ export default (props) => {
       <Image centered size="large" src={imgUrl} alt={title} />
       <Card.Content>
         <Card.Header content={title} />
-        <Card.Description>{`${overview.slice(0, 60)}...`}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <div className="extra-details">

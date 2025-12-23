@@ -1,3 +1,7 @@
+.movie-container {
+    container: container / inline-size;
+}
+
 .phm-details {
     display: flex;
     margin: 4px;
@@ -60,6 +64,7 @@
 .gradient-image {
   position: relative;
   display: inline-block;
+  container: poster / inline-size;
 }
 
 .gradient-image::after {
@@ -110,7 +115,7 @@
     align-items: baseline;
     display: flex;
     justify-content: space-between !important;
-    margin-top: 0.5rem !important;
+    margin-top: 1rem !important;
 }
 
 /*******************************
@@ -136,4 +141,24 @@ People component styles
 
 .error-image {
     width: 50% !important;
+}
+
+
+@container poster (max-width: 600px) {
+    .hero-text {
+        top: 99%;
+        max-width: 90%;
+    }
+    
+    .hero-text .phm-description {
+        color: black;
+        -webkit-line-clamp: 2;
+        max-width: 90%;
+    }
+}
+
+@container .movie-container (max-width: 600px) {
+    .content {
+        padding-top: 20px;
+    }
 }
