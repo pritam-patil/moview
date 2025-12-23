@@ -63,9 +63,11 @@ const Onboarding = () => {
   };
 
   return (
-    <section>
-      <Header as="h3">Select your favorite genres</Header>
-      <section>
+    <section className="wrapper">
+      <Header as="h3" className="onboarding-header">
+        Select your favorite genres
+      </Header>
+      <section className="genres">
         {genres.map((genre) => {
           return (
             <Button
