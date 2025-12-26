@@ -4,7 +4,20 @@ const Header = lazy(() => import("./Header"));
 
 const TopbarGrid = (props) => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            height: "64px",
+            display: "flex",
+            alignItems: "center",
+            color: "transparent",
+          }}
+        >
+          Loading...
+        </div>
+      }
+    >
       <Header />
     </Suspense>
   );
