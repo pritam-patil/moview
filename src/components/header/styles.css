@@ -3,6 +3,7 @@ header {
   display: flex;
   align-items: center;
   flex-flow: row nowrap;
+  height: 64px;
 }
 
 header .left {
@@ -10,6 +11,7 @@ header .left {
   align-items: center;
   flex-flow: row nowrap;
   gap: 12px;
+  height: 100%;
 }
 
 .left a {
@@ -42,4 +44,5 @@ h2 {
 
 header .right {
   margin-left: auto;
+  height: 100%;
 }

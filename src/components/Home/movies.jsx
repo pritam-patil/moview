@@ -179,6 +179,7 @@ class Main extends React.Component {
       });
       return (
         <Tab
+          className="sticky-menu"
           panes={panes}
           activeIndex={selectedTab}
           onTabChange={this.onTabChange}
@@ -220,7 +221,7 @@ class Main extends React.Component {
             onOnline={(e) => this.updateConnection(false)}
             onOffline={(e) => this.updateConnection(true)}
           >
-            <Menu tabular attached="top">
+            <Menu tabular attached="top" className="sticky-menu">
               <Menu.Item
                 active
                 color={tabName === TAB_DEFAULT_NAME ? "inherit" : "blue"}
