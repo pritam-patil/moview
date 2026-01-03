@@ -28,7 +28,7 @@
 
 .phm-description {
     display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: -1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   max-width: 60%;
@@ -115,7 +115,6 @@
     align-items: baseline;
     display: flex;
     justify-content: space-between !important;
-    margin-top: 1rem !important;
 }
 
 /*******************************
@@ -146,11 +145,12 @@ People component styles
 
 @container poster (max-width: 600px) {
     .hero-text {
-        top: 99%;
+        top: 75%;
         max-width: 90%;
     }
     
     .hero-text .phm-description {
+        display: none;
         color: black;
         -webkit-line-clamp: 2;
         max-width: 90%;
