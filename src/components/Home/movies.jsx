@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import AirbrakeClient from "airbrake-js";
 import { Icon, Menu, Modal, Segment, Tab, TabPane } from "semantic-ui-react";
 import {
@@ -21,44 +22,46 @@ const {
   MAX_TIME_MINS,
 } = DEFAULT_FILTERS;
 
-class Main extends React.Component {
-  state = {
-    tabs: [],
-    selectedTab: 0,
-    url: `https://api.themoviedb.org/3/genre/movie/list?api_key=651925d45022d1ae658063b443c99784&language=en-US`,
-    moviesUrl: `https://api.themoviedb.org/3/discover/movie?api_key=651925d45022d1ae658063b443c99784&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&page=1`,
-    genre: null,
-    year: {
-      label: "year",
-      min: 1970,
-      max: new Date().getFullYear(),
-      step: 1,
-      value: { min: MIN_YEAR, max: MAX_YEAR },
-    },
-    rating: {
-      label: "rating",
-      min: 0,
-      max: 10,
-      step: 1,
-      value: { min: MIN_RATING, max: MAX_RATING },
-    },
-    runtime: {
-      label: "runtime",
-      min: 0,
-      max: 300,
-      step: 15,
-      value: { min: MIN_TIME_MINS, max: MAX_TIME_MINS },
-    },
-    isOpen: false,
-    hasError: false,
-  };
+const Main = (props) => {
+  const [tabs, setTabs] = useState([]);
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [url, setUrl] = useState(
+    `https://api.themoviedb.org/3/genre/movie/list?api_key=651925d45022d1ae658063b443c99784&language=en-US`
+  );
+  const [moviesUrl, setMoviesUrl] = useState(
+    `https://api.themoviedb.org/3/discover/movie?api_key=651925d45022d1ae658063b443c99784&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&page=1`
+  );
+  const [genre, setGenre] = useState(null);
+  const [year, setYear] = useState({
+    label: "year",
+    min: 1970,
+    max: new Date().getFullYear(),
+    step: 1,
+    value: { min: MIN_YEAR, max: MAX_YEAR },
+  });
+  const [rating, setRating] = useState({
+    label: "rating",
+    min: 0,
+    max: 10,
+    step: 1,
+    value: { min: MIN_RATING, max: MAX_RATING },
+  });
+  const [runtime, setRuntime] = useState({
+    label: "runtime",
+    min: 0,
+    max: 300,
+    step: 15,
+    value: { min: MIN_TIME_MINS, max: MAX_TIME_MINS },
+  });
+  const [isOpen, setIsOpen] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
-  airbrake = new AirbrakeClient({
+  const airbrake = new AirbrakeClient({
     projectId: 219983,
     projectKey: "7881b9af5510c9794ba34bb4d525eecd",
   });
 
-  componentDidMount() {
+  useEffect(() => {
     const preferences = new LocalStorageManager("preferences");
     const allGenres = new LocalStorageManager("allGenres");
     const selectedTabsStore = new LocalStorageManager("selectedTabs");
@@ -70,65 +73,52 @@ class Main extends React.Component {
         })) ||
       [];
 
-    this.setState({ tabs: selectedTabs });
+    setTabs(selectedTabs);
 
     if (!selectedTabsStore) {
-      this.onTabChange(null, { activeIndex: 0 });
+      onTabChange(null, { activeIndex: 0 });
     } else {
       // restore last active tab
       const data = selectedTabsStore && selectedTabsStore.get();
-      this.setState({ selectedTab: (data && data.selectedTab) || 0 });
+      setSelectedTab((data && data.selectedTab) || 0);
     }
-  }
+  }, []);
 
-  componentDidCatch(error, info) {
-    this.setState({ hasError: true });
-
-    // Send error to airBrake
-    this.airbrake.notify({
-      error,
-      params: { info },
-    });
-  }
-
-  onGenreChange = (event) => {
-    this.setState({ genre: event.target.value });
+  const onGenreChange = (event) => {
+    setGenre(event.target.value);
   };
 
-  onTabChange = (e, { activeIndex }) => {
+  const onTabChange = (e, { activeIndex }) => {
     const selectedTabsStore = new LocalStorageManager("selectedTabs");
 
-    this.setState({ selectedTab: activeIndex }, () => {
-      selectedTabsStore.set({
-        selectedTab: activeIndex,
-        lastUpdated: new Date().toISOString(),
-      });
+    setSelectedTab(activeIndex);
+    selectedTabsStore.set({
+      selectedTab: activeIndex,
+      lastUpdated: new Date().toISOString(),
     });
   };
 
-  onChange = (data) => {
-    this.setState({
-      [data.type]: {
-        ...this.state[data.type],
-        value: data.value,
-      },
-    });
+  const onChange = (data) => {
+    // TODO: check this
+    // this.setState({
+    //   [data.type]: {
+    //     ...this.state[data.type],
+    //     value: data.value,
+    //   },
+    // });
   };
 
-  toggleModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
   };
 
-  onCloseModal = () => {
-    this.setState({ isOpen: false });
+  const onCloseModal = () => {
+    setIsOpen(false);
   };
 
-  generateUrl = () => {
-    const { year, rating, runtime } = this.state;
+  const generateUrl = () => {
     const selectedGenre = MOVIE_GENRES.find(
-      (genre) => genre.name === (this.state.genre || "Action")
+      (genre) => genre.name === (genre || "Action")
     );
     const genreId = selectedGenre.id;
 
@@ -145,100 +135,102 @@ class Main extends React.Component {
       `with_runtime.lte=${runtime.value.max}&` +
       `page=1&`;
 
-    this.setState({ moviesUrl });
+    setMoviesUrl(moviesUrl);
   };
 
-  onSearchButtonClick = () => {
-    this.toggleModal();
-    this.generateUrl();
+  const onSearchButtonClick = () => {
+    toggleModal();
+    generateUrl();
   };
 
-  render() {
-    const { genre, hasError, isOpen, tabs, selectedTab } = this.state;
-    const { offline } = this.props;
-    const tabName = genre || TAB_DEFAULT_NAME;
 
-    if (hasError) {
-      return <ErrorPage />;
-    }
+  const { offline } = props;
+  const tabName = genre || TAB_DEFAULT_NAME;
 
-    if (tabs.length) {
-      const panes = tabs.map((tab) => {
-        return {
-          menuItem: tab.name,
-          render: () => {
-            const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${tab.id}&api_key=${API_KEY}`;
-            return (
-              <TabPane>
-                <MovieList url={url} />
-              </TabPane>
-            );
-          },
-        };
-      });
-      return (
-        <Tab
-          className="sticky-menu"
-          panes={panes}
-          activeIndex={selectedTab}
-          onTabChange={this.onTabChange}
-        />
-      );
-    }
+  if (hasError) {
+    return <ErrorPage />;
+  }
 
+  if (tabs.length) {
+    const panes = tabs.map((tab) => {
+      return {
+        menuItem: tab.name,
+        render: () => {
+          const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${tab.id}&api_key=${API_KEY}`;
+          return (
+            <TabPane>
+              <MovieList url={url} />
+            </TabPane>
+          );
+        },
+      };
+    });
     return (
-      <div className="main">
-        <Icon
-          disabled={offline}
-          circular
-          id="custom-search"
-          name="filter"
-          size="big"
-          tabIndex={2}
-          onClick={this.toggleModal}
-          className="filter"
-        />
-        <Modal
-          classNames={{ modal: "modal-custom" }}
-          open={isOpen}
-          onClose={this.onCloseModal}
-          size="mini"
-        >
-          <Navigation
-            onChange={this.onChange}
-            onGenreChange={this.onGenreChange}
-            onModalClose={this.onCloseModal}
-            onSearchButtonClick={this.onSearchButtonClick}
-            onClose={this.toggleModal}
-            {...this.state}
-          />
-        </Modal>
-        {offline ? (
-          <NoConnection />
-        ) : (
-          <div
-            onOnline={(e) => this.updateConnection(false)}
-            onOffline={(e) => this.updateConnection(true)}
-          >
-            <Menu tabular attached="top" className="sticky-menu">
-              <Menu.Item
-                active
-                color={tabName === TAB_DEFAULT_NAME ? "inherit" : "blue"}
-                name={tabName}
-              />
-            </Menu>
-            <Segment attached="bottom">
-              <MovieList
-                genre={this.state.genre}
-                url={this.state.moviesUrl}
-                onClick={this.toggleModal}
-              />
-            </Segment>
-          </div>
-        )}
-      </div>
+      <Tab
+        className="sticky-menu"
+        panes={panes}
+        activeIndex={selectedTab}
+        onTabChange={onTabChange}
+      />
     );
   }
+
+  return (
+    <div className="main">
+      <Icon
+        disabled={offline}
+        circular
+        id="custom-search"
+        name="filter"
+        size="big"
+        tabIndex={2}
+        onClick={toggleModal}
+        className="filter"
+      />
+      <Modal
+        classNames={{ modal: "modal-custom" }}
+        open={isOpen}
+        onClose={onCloseModal}
+        size="mini"
+      >
+        <Navigation
+          onChange={onChange}
+          onGenreChange={onGenreChange}
+          onModalClose={onCloseModal}
+          onSearchButtonClick={onSearchButtonClick}
+          onClose={toggleModal}
+          genre={genre}
+          year={year}
+          rating={rating}
+          runtime={runtime}
+        />
+      </Modal>
+      {offline ? (
+        <NoConnection />
+      ) : (
+        <div
+          onOnline={(e) => updateConnection(false)}
+          onOffline={(e) => updateConnection(true)}
+        >
+          <Menu tabular attached="top" className="sticky-menu">
+            <Menu.Item
+              active
+              color={tabName === TAB_DEFAULT_NAME ? "inherit" : "blue"}
+              name={tabName}
+            />
+          </Menu>
+          <Segment attached="bottom">
+            <MovieList
+              genre={genre}
+              url={moviesUrl}
+              onClick={toggleModal}
+            />
+          </Segment>
+        </div>
+      )}
+    </div>
+  );
 }
+
 
 export default Main;
