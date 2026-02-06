@@ -42,6 +42,9 @@ module.exports = env => {
           ]
         },
         plugins: [
+          new webpack.ProvidePlugin({
+            React: 'react',
+          }),
           new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: './index.html'
