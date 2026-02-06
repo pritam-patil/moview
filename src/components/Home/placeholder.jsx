@@ -1,5 +1,5 @@
 import _ from "lodash";
-import React from "react";
+;
 import { Card, Menu } from "semantic-ui-react";
 import { ITEMS_PER_ROW } from "../../constants";
 import MoviePlaceHolder from "./alt-placeholder";

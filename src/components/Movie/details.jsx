@@ -1,4 +1,4 @@
-import React from "react";
+;
 import { Grid, Icon, Label } from "semantic-ui-react";
 import { Rating } from "../common";
 

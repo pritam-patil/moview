@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, Grid, Icon, Image, Label } from "semantic-ui-react";
 import { Rating as MovieRatings } from "../common";
 import { ROUTES } from "../../constants";

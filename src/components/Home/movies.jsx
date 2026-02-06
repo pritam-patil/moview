@@ -1,4 +1,3 @@
-import React from "react";
 import AirbrakeClient from "airbrake-js";
 import { Icon, Menu, Modal, Segment, Tab, TabPane } from "semantic-ui-react";
 import {
