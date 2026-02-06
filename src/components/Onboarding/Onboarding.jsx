@@ -1,4 +1,4 @@
-import React from "react";
+;
 import { useNavigate } from "react-router-dom";
 import { API_KEY } from "../../constants";
 import { Button, Header } from "semantic-ui-react";

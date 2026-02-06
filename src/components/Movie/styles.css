@@ -1,5 +1,6 @@
 .movie-container {
     container: container / inline-size;
+    box-shadow: none !important;
 }
 
 .phm-details {
